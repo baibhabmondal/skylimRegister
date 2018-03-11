@@ -172,7 +172,7 @@
   
                        <v-flex xs3  d-inline-fleX  >
                       
-                           <v-text-field :error-messages="errors.collect('name')" data-vv-name="name"  label="First Name"  v-model="form2.gfname" ></v-text-field>
+                           <v-text-field label="First Name"  v-model="form2.gfname" ></v-text-field>
                        </v-flex>
   
                      
@@ -332,12 +332,19 @@ watch: {
  }
 },
 methods: {
-    submit () {
-        this.$validator.validateAll();
-        this.a=this.errors.any();
-        if(this.a == false){
+    submit(){
+        console.log(this.errors.any());
+        this.$validator.validateAll().then((result) => {
+        if (result) {
+console.log(this.errors.any());
+        if(this.errors.any() == false){
           this.$emit('form1validity',3);
         }
+          return;
+        }
+
+        
+      });
       },
        clear () {
                    

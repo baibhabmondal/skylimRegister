@@ -14,8 +14,9 @@ export default new Router({
     },
     {
       path:'/admission',
-      name: 'admissionInit',
+      name:'admissionInit',
       component: admissionInit
+      
     }
   ]
 })

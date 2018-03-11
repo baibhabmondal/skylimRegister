@@ -1,7 +1,7 @@
 <template>
    <div>
        <v-card color="" class="mb-5" height="100%">
-           <v-form v-model="valid" lazy-validation>
+           <v-form v-model="valid" type="hidden" lazy-validation>
                <v-container grid-list-md text-xs-center>
               
               
@@ -45,19 +45,24 @@
                           full-width
                           :nudge-right="40"
                           min-width="190px"
+                           :error-messages="errors.collect('dobselect')"
+                                    v-validate="'required'"
                           required
                       >
                           <v-text-field  v-model="form.dob"
                               slot="activator"
                               label="D.O.B"
-                              
+                              required
                               prepend-icon="event"
-                              readonly required>
+                              :error-messages="errors.collect('dobselect')"
+                                    v-validate="'required'"
+                                    required
+                              >
                           </v-text-field>
                           <v-date-picker  v-model="form.dob"
                               landscape=""
                               ref="picker"
-                              
+                              required
                               @change="save"
                               min="1950-0  1-01"
                               :max="new Date().toISOString().substr(0, 10)">
@@ -72,30 +77,27 @@
                       
 
                       
-                        <v-radio-group :mandatory="false" row  v-model="form.gender">
+                        <v-radio-group :mandatory="true" row  v-model="form.gender" v-validate="'required|in:male,female'" required>
                             <v-flex xs2>
-                               <v-radio label="Male" value="male"  ></v-radio>
+                               <v-radio label="Male" value="male"  v-validate="'required'" ></v-radio>
                             </v-flex>
                             <v-flex xs2 >
                                <v-radio label="Female" value="female"></v-radio>
                             </v-flex>
-                           
                         </v-radio-group>
-                       
-
                    </v-layout>
 <!-- blood groups -->
                    <v-layout>
                         <v-flex xs4 pt-4>BLOOD GROUP</v-flex>
                         <v-flex xs3>
                             <v-select  v-model="form.bloodgroup"
-                               label="Select"
-                                :items="items"
-                                 :error-messages="errors.collect('bloodGroupSelect')"
+                               :error-messages="errors.collect('bgselect')"
                                     v-validate="'required'"
-                                    data-vv-name="boloodGroupSelect"
+                                    data-vv-name="bgselect"
                                     required
-                                 item-value="text"
+                                    label="Select"
+                                    :items="items"
+                                    item-value="text"
                               ></v-select>
                         </v-flex>
                    </v-layout>
@@ -121,9 +123,8 @@
                       </v-flex>
                      <v-flex xs8>
                          <v-text-field  v-model="form.add1"
-                         :error-messages="errors.collect('address')" data-vv-name="address" v-validate="'required|alpha'"
+                         :error-messages="errors.collect('address')" data-vv-name="address" v-validate="'required'"
                          label="PERMANENT ADDRESS"
-                         :counter="10"
                          required
                       ></v-text-field>
 
@@ -139,9 +140,9 @@
                                 </v-flex>
                                 <v-flex xs2>
                               <v-select  v-model="form.add1city"
-                               :error-messages="errors.collect('citySelect')"
+                               :error-messages="errors.collect('cselect')"
                                     v-validate="'required'"
-                                    data-vv-name="select"
+                                    data-vv-name="cselect"
                                     required
                                     label="Select"
                                     :items="items"
@@ -155,9 +156,9 @@
                            </v-flex>
                            <v-flex xs2 >
                               <v-select  v-model="form.add1state"
-                               :error-messages="errors.collect('stateSelect')"
+                               :error-messages="errors.collect('sselect')"
                                     v-validate="'required'"
-                                    data-vv-name="select"
+                                    data-vv-name="sselect"
                                     required
                                label="Select"
                                 :items="items"
@@ -187,7 +188,6 @@
                      <v-flex xs8>
                          <v-text-field  v-model="form.add2"
                          label="TEMPORARY ADDRESS"
-                         :counter="10"
                          required
                       ></v-text-field>
 
@@ -227,7 +227,7 @@
                               PINCODE
                            </v-flex>
                            <v-flex xs2 >
-                            <v-text-field  v-model="form.add2pincode" label="pincode" :counter="6" required></v-text-field>
+                            <v-text-field  v-model="form.add2pincode" label="pincode" required></v-text-field>
                            </v-flex>
                   </v-layout>
 
@@ -242,7 +242,7 @@
                         <v-flex xs2 offset-xs1 >
                        <v-text-field   v-model="form.contact2" label="student-2" ></v-text-field>
                         </v-flex>
-                    </v-layout>{{errors.any()}}
+                    </v-layout>
  
     <v-btn @click="submit" type="submit" color="primary">CONTINUE</v-btn>
     <v-btn @click="clear" color="primary">clear</v-btn>
@@ -293,21 +293,28 @@ export default {
             required: () => "address can not be empty",
             max: "The name field may not be greater than 10 characters"
           },
-          bloodGroupSelect: {
-            required:()=> "Select field is required"
+          dobselect: {
+            required:   "D.O.B is required"
           },
-          citySelect: {
+          bgselect: {
+            required:"Select field is required"
+          },
+          cselect: {
             required: "Select field is required"
           },
-          stateSelect: {
+          sselect: {
             required: "Select field is required"
+          },
+          phone: {
+            required: "phone is required"
           },
           pin: {
             required: "pincode is required"
           },
-          phone: {
-            required: "phone is required"
+          gender:{
+            required: "select is required"
           }
+          
         }
       }
     };
@@ -323,11 +330,18 @@ export default {
   },
   methods: {
     submit () {
-        this.$validator.validateAll();
-        this.a=this.errors.any();
-        if(this.a == false){
+         console.log(this.errors.any());
+        this.$validator.validateAll().then((result) => {
+        if (result) {
+console.log(this.errors.any());
+        if(this.errors.any() == false){
           this.$emit('form1validity',2);
         }
+          return;
+        }
+
+        
+      });
       },
     clear() {
        this.form.fname = "",

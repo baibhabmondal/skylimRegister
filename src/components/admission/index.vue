@@ -1,13 +1,13 @@
 <template>
-    <div id="app">
-        <v-app id="inspire">
+    <div id="app" >
+        <v-app id="inspire" dark>
             <v-card>
             <navbar class="mb-2"></navbar>
 
                
                    <v-container>
 
-                   
+                       
 
                     <v-stepper v-model="e1">
                         <v-stepper-header>
@@ -35,6 +35,11 @@
                             </v-stepper-content>
                             <v-stepper-content step="3">
                                 <three></three>
+                                <v-btn color="primary" @click.native="e1 = 4">Continue</v-btn>
+                                <v-btn flat>Cancel</v-btn>
+                            </v-stepper-content>
+                              <v-stepper-content step="4">
+                                <four></four>
                                 <v-btn color="primary" @click.native="e1 = 1">Continue</v-btn>
                                 <v-btn flat>Cancel</v-btn>
                             </v-stepper-content>
@@ -56,7 +61,7 @@ import navbar from './../navbar.vue'
 import one from './steps/one.vue'
 import two from './steps/two.vue'
 import three from './steps/three.vue'
-
+import four from './steps/four.vue'
 export default {
   data () {
     return {
@@ -97,6 +102,6 @@ export default {
           this.e1--;
       }
   },
-  components:{navbar,one,two,three}
+  components:{navbar,one,two,three,four}
 }
 </script>
