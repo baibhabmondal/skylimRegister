@@ -3,7 +3,7 @@
   
       
   
-           <v-form v-model="valid">
+           <v-form @submit.prevent="submit">
    <v-container grid-list-md text-xs-center  height="100%">
               
   
@@ -256,16 +256,7 @@
        data() {
   
            return {
-                items: [
-         { text: 'O positive' },
-         { text: 'O negative' },
-         { text: 'A negative' },
-         { text: 'A positive' },
-         { text: 'B  negative' },
-         { text: 'B positive' },
-         { text: 'AB negative' },
-        { text: 'AB positive' }
-       ],
+          
            }
        }
   
@@ -291,7 +282,6 @@
        data() {
            
            return {
-              a:false,
                 valid: true,
                 date: null,
                 menu: false,
@@ -305,15 +295,8 @@
                 required: () => 'Name can not be empty',
                 max: 'The name field may not be greater than 10 characters'
             },
-            address: {
-                required: () => 'address can not be empty',
-                max: 'The name field may not be greater than 10 characters'
-            },
             select: {
                 required: 'Select field is required'
-            },
-            pin: {
-                required: 'pincode is required'
             },
             phone: {
                 required: 'pincode is required'
@@ -338,7 +321,7 @@ methods: {
         if (result) {
 console.log(this.errors.any());
         if(this.errors.any() == false){
-          this.$emit('form1validity',3);
+          this.$emit('form1validity',4);
         }
           return;
         }

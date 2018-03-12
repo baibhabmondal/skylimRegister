@@ -1,55 +1,53 @@
 <template>
     <div id="app" >
-        <v-app id="inspire" dark>
-            <v-card>
+        <v-app id="inspire" style="background-color:white">
             <navbar class="mb-2"></navbar>
 
-               
-                   <v-container>
+               <v-layout row wrap >
+                   <v-flex lg8 offset-lg2>
 
                        
 
-                    <v-stepper v-model="e1">
-                        <v-stepper-header>
-                            <v-stepper-step step="1" :complete="e1 > 1" editable></v-stepper-step>
+                    <v-stepper v-model="e1"  style="box-shadow:0 0 0 0;background-color:#E9EBEE;">
+                        <v-stepper-header style="box-shadow:1px 0 0.5px 0">
+                             <v-stepper-step step="1" :complete="e1 > 1" editable></v-stepper-step>
                             <v-divider></v-divider>
                             <v-stepper-step step="2" :complete="e1 > 2" editable></v-stepper-step>
                             <v-divider></v-divider>
-                            <v-stepper-step step="3" editable></v-stepper-step>
+                            <v-stepper-step step="3" :complete="e1 > 3" editable></v-stepper-step>
                             <v-divider></v-divider>
                             <v-stepper-step step="4" editable></v-stepper-step>
+                            <v-divider></v-divider>
+                            <v-stepper-step step="5" editable></v-stepper-step>
                         </v-stepper-header>
                         
-                        <v-stepper-items>
-                            <v-container>
-                            <v-stepper-content step="1">
-                                <one :complete="e1" @form1validity="setE"></one>
-                                <!-- <v-btn type="submit" color="primary"  @click.native="e1 = 2,submit" @click="">Continue</v-btn>                         -->
+                        <v-stepper-items style="padding:0px" >
+                             <v-stepper-content step="1" style="width:100%;padding:0px;margin:0px" >
                             </v-stepper-content>
-                            <v-stepper-content step="2">
-                                <v-flex>EDUCATIONAL BACKGROUND</v-flex>
-                                <two :complete="e1" @form1validity="setE"></two>
-                                <!-- <v-btn :disabled="errors.any()" type="submit" color="primary" @click.native="e1 = 3" @click="one2">Continue</v-btn>                         -->
-                                <v-btn color="primary" @click.native="e1 = 1">Go Back</v-btn>                        
-                            
+                            <v-stepper-content step="2" style="width:100%;padding:0px;margin:0px" >
+                                <one :complete="e1" @form1validity="setE"></one>
                             </v-stepper-content>
                             <v-stepper-content step="3">
+                                <two :complete="e1" @form1validity="setE"></two>
+                                <v-btn color="primary" @click.native="e1 = 2">Go Back</v-btn>                        
+                            
+                            </v-stepper-content>
+                            <v-stepper-content step="4">
                                 <three></three>
                                 <v-btn color="primary" @click.native="e1 = 4">Continue</v-btn>
                                 <v-btn flat>Cancel</v-btn>
                             </v-stepper-content>
-                              <v-stepper-content step="4">
+                              <v-stepper-content step="5">
                                 <four></four>
                                 <v-btn color="primary" @click.native="e1 = 1">Continue</v-btn>
                                 <v-btn flat>Cancel</v-btn>
                             </v-stepper-content>
-                            </v-container>
                         </v-stepper-items>
                 
                     
                     </v-stepper>
-            </v-container>
-               </v-card>
+            </v-flex>
+            </v-layout>
         </v-app>
     </div>
 </template>--->
@@ -69,14 +67,7 @@ export default {
         combine:[]
     }
   },
-  computed: {
-        form(){
-            return this.$store.state.form;
-        },
-        form2(){
-            return this.$store.state.form2;
-        },
-  },
+ 
   methods:{
       one1:function(){
           console.log(this.form)

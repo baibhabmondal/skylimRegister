@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                     <div class="attachment-holder animated fadeIn" v-cloak v-for="(attachment, index) in attachments"> 
                         <span class="label label-primary">{{ attachment.name + ' (' + Number((attachment.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span> 
-                        <span class="" style="background: red; cursor: pointer;" @click="removeAttachment(attachment)"><button class="btn btn-xs btn-danger">Remove</button></span>
+                        <span class="" @click="removeAttachment(attachment)"><button class="btn btn-xs btn-danger">Remove</button></span>
                     </div>
                 </div>
              </div>
@@ -30,8 +30,8 @@
                 attachments: [],
                 // Each file will need to be sent as FormData element
                 data: new FormData(),
-                errors: {
-                },
+                // errors: {
+                // },
                 percentCompleted: 0, // You can store upload progress 0-100 in value, and show it on the screen
             }
         },

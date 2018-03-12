@@ -1,21 +1,19 @@
 <template>
-   <div>
-       <v-card color="" class="mb-5" height="100%">
-           <v-form v-model="valid" type="hidden" lazy-validation>
-               <v-container grid-list-md text-xs-center>
+   <div style="width:100%;border:1px">
+           <v-form @submit.prevent="submit">
+               <v-container grid-list-md text-xs-right  style="width:100%;border:1px:padding:0px" > 
               
               
-                   <h2>STUDENT'S DETAILS</h2>
+                   <h2  style="border-style:solid;border-width:0.5px 0 0.5px 0;border-color:#acabab;display:block;background-color:#acabab" pl-2 >STUDENT DETAILS</h2>
 <!--name first and last-->  
                    <v-layout row>
-                       <v-flex pt-4 xs4 >NAME</v-flex>
+                       <v-flex pt-4 xs4 pl-1>NAME</v-flex>
   
                        <v-flex xs3  d-inline-fleX  >
                       
                            <v-text-field :error-messages="errors.collect('fname')" data-vv-name="fname" v-validate="'required|alpha'" label="First Name" required v-model="form.fname" ></v-text-field>
-                        <!-- <span v-show="errors.has('name')">
-                            {{ errors.first('name') }}
-                        </span> -->
+
+                        </span>
                        </v-flex>
   
                      
@@ -45,24 +43,16 @@
                           full-width
                           :nudge-right="40"
                           min-width="190px"
-                           :error-messages="errors.collect('dobselect')"
-                                    v-validate="'required'"
-                          required
                       >
                           <v-text-field  v-model="form.dob"
                               slot="activator"
                               label="D.O.B"
-                              required
                               prepend-icon="event"
-                              :error-messages="errors.collect('dobselect')"
-                                    v-validate="'required'"
-                                    required
                               >
                           </v-text-field>
                           <v-date-picker  v-model="form.dob"
                               landscape=""
                               ref="picker"
-                              required
                               @change="save"
                               min="1950-0  1-01"
                               :max="new Date().toISOString().substr(0, 10)">
@@ -72,19 +62,20 @@
                    </v-layout>
 
 <!-- gender-->
-                   <v-layout row class="text-md-center">
-                       <v-flex xs4 pt-4>GENDER</v-flex>
+                   <v-layout row>
+                       <v-flex xs4 pt-4 class="name">GENDER</v-flex>
                       
 
                       
-                        <v-radio-group :mandatory="true" row  v-model="form.gender" v-validate="'required|in:male,female'" required>
+                        <v-radio-group :mandatory="true" row :error-messages="errors.collect('gender')" data-vv-name="gender" v-model="form.gender">
                             <v-flex xs2>
-                               <v-radio label="Male" value="male"  v-validate="'required'" ></v-radio>
+                               <v-radio name="radio_group_1" label="Male" :error-messages="errors.collect('gender')" data-vv-name="gender" v-validate="'required|in:1,2'" value="1" ></v-radio>
                             </v-flex>
-                            <v-flex xs2 >
-                               <v-radio label="Female" value="female"></v-radio>
+                            <v-flex xs2>
+                               <v-radio name="radio_group_1" label="Female" value="2"></v-radio>
                             </v-flex>
                         </v-radio-group>
+                        <span v-show="errors.has('male')">{{ errors.any('radio_group_1') }}</span>
                    </v-layout>
 <!-- blood groups -->
                    <v-layout>
@@ -177,6 +168,8 @@
                            </v-flex>
                            <v-flex xs2 >
                             <v-text-field  v-model="form.add1pincode" v-validate="'required|digits:6'" label="pincode" required  :error-messages="errors.collect('pin')" data-vv-name="pin" ></v-text-field>
+                            
+                        </span>
                            </v-flex>
                   </v-layout>
       
@@ -188,7 +181,7 @@
                      <v-flex xs8>
                          <v-text-field  v-model="form.add2"
                          label="TEMPORARY ADDRESS"
-                         required
+                         
                       ></v-text-field>
 
                      </v-flex>
@@ -227,7 +220,7 @@
                               PINCODE
                            </v-flex>
                            <v-flex xs2 >
-                            <v-text-field  v-model="form.add2pincode" label="pincode" required></v-text-field>
+                            <v-text-field  v-model="form.add2pincode" label="pincode" ></v-text-field>
                            </v-flex>
                   </v-layout>
 
@@ -249,7 +242,6 @@
 
                </v-container>
            </v-form>
-       </v-card>
    </div>
 </template>
 
@@ -278,7 +270,7 @@ export default {
       checkbox: null,
       dictionary: {
         attributes: {
-          email: "E-mail Address"
+          email: "E-mail Address",
         },
         custom: {
           fname: {
@@ -329,13 +321,13 @@ export default {
     }
   },
   methods: {
-    submit () {
-         console.log(this.errors.any());
+  submit(){
+        console.log(this.errors.any());
         this.$validator.validateAll().then((result) => {
         if (result) {
 console.log(this.errors.any());
         if(this.errors.any() == false){
-          this.$emit('form1validity',2);
+          this.$emit('form1validity',3);
         }
           return;
         }
@@ -388,5 +380,9 @@ console.log(this.errors.any());
 };
 </script>
 
-
+<style scoped> 
+.name{
+  padding-left: 40px;
+}
+</style>
 
