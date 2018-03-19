@@ -9,7 +9,7 @@
                 <hr>
                 <div class="col-md-12">
                     <div class="attachment-holder animated fadeIn" v-cloak v-for="(attachment, index) in attachments"> 
-                        <span class="label label-primary">{{ attachment.name + ' (' + Number((attachment.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span> 
+                        <span class="label label-primary">{{ (index+1)+':-'+attachment.name + ' (' + Number((attachment.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span> 
                         <span class="" @click="removeAttachment(attachment)"><button class="btn btn-xs btn-danger">Remove</button></span>
                     </div>
                 </div>
@@ -47,6 +47,7 @@
                 
                 this.upload_size = Number((this.upload_size).toFixed(1));
                 this.$forceUpdate();
+                console.log(this.attachments)
             },
             prepareFields() {
                 
@@ -55,6 +56,8 @@
                         let attachment = this.attachments[i];
                         this.data.append('attachments[]', attachment);
                     }
+                                    console.log(this.attachments)
+
                 }
             },
             removeAttachment(attachment) {
@@ -62,6 +65,8 @@
                 this.attachments.splice(this.attachments.indexOf(attachment), 1);
                 
                 this.getAttachmentSize();
+                                console.log(this.attachments)
+
             },
             // This function will be called every time you add a file
             uploadFieldChange(e) {
@@ -71,6 +76,8 @@
                 for (var i = files.length - 1; i >= 0; i--) {
                     this.attachments.push(files[i]);
                 }
+                                console.log(this.attachments)
+
                 // Reset the form to avoid copying these files multiple times into this.attachments
                 document.getElementById("attachments").value = [];
             },
@@ -107,7 +114,7 @@
                 this.attachments = [];
             },
             start() {
-                console.log('Starting File Management Component');
+                // console.log('Starting File Management Component');
             },
         },
         created() {

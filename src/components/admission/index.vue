@@ -22,20 +22,20 @@
                         </v-stepper-header>
                         
                         <v-stepper-items style="padding:0px" >
-                             <v-stepper-content step="1" style="width:100%;padding:0px;margin:0px" >
+                            <v-stepper-content step="1" style="width:100%;padding:0px;margin:0px" >
+                                <intro></intro>
+                                <v-btn color="primary" @click.native="e1 = 2">go to registration</v-btn>                        
                             </v-stepper-content>
                             <v-stepper-content step="2" style="width:100%;padding:0px;margin:0px" >
-                                <one :complete="e1" @form1validity="setE"></one>
+                                <one :complete="e1" @form1validity="setE" ></one>
                             </v-stepper-content>
                             <v-stepper-content step="3">
                                 <two :complete="e1" @form1validity="setE"></two>
                                 <v-btn color="primary" @click.native="e1 = 2">Go Back</v-btn>                        
-                            
                             </v-stepper-content>
                             <v-stepper-content step="4">
-                                <three></three>
-                                <v-btn color="primary" @click.native="e1 = 4">Continue</v-btn>
-                                <v-btn flat>Cancel</v-btn>
+                                <three :complete="e1" @to1push="pushing" @form1validity="setE"></three>
+                                <v-btn color="primary"  @click.native="e1 = 3">Go back</v-btn>
                             </v-stepper-content>
                               <v-stepper-content step="5">
                                 <four></four>
@@ -50,7 +50,7 @@
             </v-layout>
         </v-app>
     </div>
-</template>--->
+</template>
   
 <script>
 
@@ -60,6 +60,9 @@ import one from './steps/one.vue'
 import two from './steps/two.vue'
 import three from './steps/three.vue'
 import four from './steps/four.vue'
+import intro from './steps/intro.vue'
+import {mapActions} from 'vuex';
+
 export default {
   data () {
     return {
@@ -67,32 +70,22 @@ export default {
         combine:[]
     }
   },
- 
-  methods:{
-      one1:function(){
-          console.log(this.form)
-
-      },
-       one2:function(){
-           this.combine.push(this.form);
-           this.combine.push(this.form2);
-          console.log(this.combine)
-
-      },
-      submit () {
-        this.$validator.validateAll()
-      },
-      setE(val){
-          console.log(val);
-          this.e1=parseInt(val);
-      },
-      incrementE(){
-          this.e1++;
-      },
-      decrementE(){
-          this.e1--;
-      }
+    computed: {
+        form(){
+            return this.$store.state.form;
+        },
+        allstudents(){
+            return this.$store.state.allstudents;
+        }
+    },
+    methods:{
+        setE(val){
+            this.e1=parseInt(val);
+        },
+        pushing:function(arg){
+            this.$store.commit('pushing',arg)
+        },
   },
-  components:{navbar,one,two,three,four}
+  components:{navbar,one,two,three,four,intro}
 }
 </script>

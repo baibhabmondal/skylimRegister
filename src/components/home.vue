@@ -33,7 +33,14 @@ export default {
   },
   components: {
     navbar
-  }
+  },
+  beforeRouteLeave (to, from, next) {
+    var cnf = confirm("do you want to leave");
+    if(cnf)next();
+    else next(false)
+  },
+ 
+
 };
 </script>
 

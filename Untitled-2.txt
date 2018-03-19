@@ -1,0 +1,381 @@
+<template>
+   <div>
+  
+      
+  
+           <v-form @submit.prevent="submit">
+   <v-container grid-list-md text-xs-center  height="100%">
+              
+  
+                  <h2>FATHERS INFO</h2>
+   <!-- first and last name of father -->
+                   <v-layout row>
+                       <v-flex pt-4 xs4 >NAME</v-flex>
+  
+                       <v-flex xs3  d-inline-fleX  >
+                      
+                           <v-text-field :error-messages="errors.collect('name')" data-vv-name="name" v-validate="'required|alpha'" label="First Name" required v-model="form.ffname" ></v-text-field>
+                       </v-flex>
+  
+                     
+  
+                       <v-flex xs3 offset-xs1>
+                      
+                           <v-text-field :error-messages="errors.collect('name')" data-vv-name="name" v-validate="'required|alpha'" label="Last Name" v-model="form.flname"></v-text-field>
+                       </v-flex>
+  
+                   </v-layout>
+   <!-- contact nuber of father -->
+                 <v-layout>
+                     <v-flex xs4 pt-4>
+                        CONTACT NUMBER
+                     </v-flex>
+                     <v-flex xs3>
+                            <v-text-field  v-model="form.fcontact"  v-validate="'required|digits:10'" label="phone" required  :error-messages="errors.collect('phone')" data-vv-name="phone" ></v-text-field>
+                     </v-flex>
+                 </v-layout>
+   <!-- email of father -->
+                <v-layout>
+
+                      <v-flex xs4 pt-4>E-MAIL</v-flex>
+                      <v-flex xs3>
+                          <v-text-field  v-model="form.fmail"
+                           :error-messages="errors.collect('email')"
+                           v-validate="'required|email'"
+                           data-vv-name="email"
+                           label="E-mail" 
+                           required
+                      ></v-text-field>
+                      </v-flex>
+               </v-layout>
+   <!-- occupation  and income of father -->
+                  <v-layout row>
+                      <v-flex xs4 pt-4>
+                          OCCUPATION
+                      </v-flex>
+                      <v-flex xs3>
+                          <v-select  v-model="form.foccupasion"
+                               label="Select"
+                                :items="items"
+                                 :error-messages="errors.collect('select')"
+                                    v-validate="'required'"
+                                    data-vv-name="select"
+                                    required
+                                 item-value="text"
+                              ></v-select>
+                      </v-flex>
+                      <v-flex pt-4 xs2 >
+                         INCOME
+                      </v-flex>
+                      <v-flex xs3>
+                                <v-select  v-model="form.fincome"
+                               label="Select"
+                                :items="items"
+                                 :error-messages="errors.collect('select')"
+                                    v-validate="'required'"
+                                    data-vv-name="select"
+                                    required
+                                 item-value="text"
+                              ></v-select>
+                      </v-flex>
+                      </v-layout>
+
+                      <v-divider></v-divider>
+                     
+
+                      <br><br>
+   <!-- mothers info starts -->
+                 
+  
+                      <h2 pt-4>MOTHERS INFO</h2>
+   <!-- first and last name of mother -->
+                   <v-layout row>
+                       <v-flex pt-4 xs4 >NAME</v-flex>
+  
+                       <v-flex xs3  d-inline-fleX  >
+                      
+                           <v-text-field :error-messages="errors.collect('name')" data-vv-name="name" v-validate="'required|alpha'" label="First Name" required v-model="form.mfname" ></v-text-field>
+                       </v-flex>
+  
+                     
+  
+                       <v-flex xs3 offset-xs1>
+                      
+                           <v-text-field :error-messages="errors.collect('name')" data-vv-name="name" v-validate="'required|alpha'" label="First Name" required v-model="form.mlname" ></v-text-field>
+                       </v-flex>
+  
+                   </v-layout>
+   <!-- contact nuber of mother -->
+                 <v-layout>
+                     <v-flex xs4 pt-4>
+                        CONTACT NUMBER
+                     </v-flex>
+                     <v-flex xs3>
+                            <v-text-field  v-model="form.mcontact"  v-validate="'required|digits:10'" label="phone" required  :error-messages="errors.collect('phone')" data-vv-name="phone" ></v-text-field>
+                     </v-flex>
+                 </v-layout>
+   <!-- email of mother -->
+                <v-layout>
+
+                      <v-flex xs4 pt-4>E-MAIL</v-flex>
+                      <v-flex xs3>
+                           <v-text-field  v-model="form.mmail"
+                           :error-messages="errors.collect('email')"
+                           v-validate="'required|email'"
+                           data-vv-name="email"
+                           label="E-mail" 
+                           required
+                      ></v-text-field>
+                      </v-flex>
+               </v-layout>
+   <!-- occupation and income of mother -->
+                  <v-layout row>
+                      <v-flex xs4 pt-4>
+                          OCCUPATION
+                      </v-flex>
+                      <v-flex xs3>
+                           <v-select  v-model="form.moccupasion"
+                               label="Select"
+                                :items="items"
+                                 :error-messages="errors.collect('select')"
+                                    v-validate="'required'"
+                                    data-vv-name="select"
+                                    required
+                                 item-value="text"
+                              ></v-select>
+                      </v-flex>
+                      <v-flex pt-4 xs2 >
+                         INCOME
+                      </v-flex>
+                      <v-flex >
+                               <v-select  v-model="form.mincome"
+                               label="Select"
+                                :items="items"
+                                 :error-messages="errors.collect('select')"
+                                    v-validate="'required'"
+                                    data-vv-name="select"
+                                    required
+                                 item-value="text"
+                              ></v-select>
+                      </v-flex>
+
+                  </v-layout>
+                  <v-divider ></v-divider>
+                  <br><br>
+   <!-- guardian info starts -->
+             
+                  <h2 >GUARDIANS INFO</h2>
+                 
+   <!-- first and last name of guardian -->
+                   <v-layout row>
+                       <v-flex pt-4 xs4 >NAME</v-flex>
+  
+                       <v-flex xs3  d-inline-fleX  >
+                      
+                           <v-text-field label="First Name"  v-model="form.gfname" ></v-text-field>
+                       </v-flex>
+  
+                     
+  
+                       <v-flex xs3 offset-xs1>
+                      
+                           <v-text-field  data-vv-name="name"  label="First Name"  v-model="form.glname" ></v-text-field>
+                       </v-flex>
+  
+                   </v-layout>
+   <!-- contact nuber of guardian -->
+                 <v-layout>
+                     <v-flex xs4 pt-4>
+                        CONTACT NUMBER
+                     </v-flex>
+                     <v-flex xs3>
+                            <v-text-field  v-model="form.gcontact"   label="phone"   data-vv-name="phone" ></v-text-field>
+                     </v-flex>
+                 </v-layout>
+   <!-- email of guardian -->
+                <v-layout>
+
+                      <v-flex xs4 pt-4>E-MAIL</v-flex>
+                      <v-flex xs3>
+                           <v-text-field  v-model="form.gmail"
+                          
+                           data-vv-name="email"
+                           label="E-mail" 
+                           
+                      ></v-text-field>
+                      </v-flex>
+               </v-layout>
+   <!-- occupation and annual income of guardian -->
+                  <v-layout row>
+                      <v-flex xs4 pt-4>
+                          OCCUPATION
+                      </v-flex>
+                      <v-flex xs3>
+                           <v-select  v-model="form.goccupasion"
+                               label="Select"
+                                :items="items"
+                                   
+                                    data-vv-name="select"
+                                    
+                                 item-value="text"
+                              ></v-select>
+                      </v-flex>
+                      <v-flex pt-4 xs2 >
+                         INCOME
+                      </v-flex>
+                      <v-flex >
+                               <v-select  v-model="form.gincome"
+                               label="Select"
+                                :items="items"
+                                    
+                                    data-vv-name="select"
+                                    
+                                 item-value="text"
+                              ></v-select>
+                      </v-flex>
+
+                  </v-layout>
+   <v-btn @click="submit" color="primary">CONTINUE</v-btn>
+    <v-btn @click="clear" color="primary">clear</v-btn>
+
+</v-container>     
+  
+           </v-form>
+  
+                 
+  
+   </div>
+</template>
+
+
+
+
+<script>
+   export default {
+  
+       data() {
+  
+           return {
+          
+           }
+       }
+  
+   }
+</script>
+
+
+<script>
+   export default {
+     
+       props:['content1'],
+       $_veeValidate: {
+          validator: 'new'
+       },
+       computed: {
+        form (){
+            return this.$store.state.form ;
+        },
+        items(){
+            return this.$store.state.items;
+        },
+       },
+       data() {
+           
+           return {
+                valid: true,
+                date: null,
+                menu: false,
+                checkbox: null,
+      dictionary: {
+        attributes: {
+          email: 'E-mail Address'
+        },
+        custom: {
+            name: {
+                required: () => 'Name can not be empty',
+                max: 'The name field may not be greater than 10 characters'
+            },
+            select: {
+                required: 'Select field is required'
+            },
+            phone: {
+                required: 'pincode is required'
+            }
+        }
+      } 
+           }
+       },
+       mounted () {
+      this.$validator.localize('en', this.dictionary)
+    },
+
+watch: {
+ menu (val) {
+   val && this.$nextTick(() => (this.$refs.picker.activePicker = 'YEAR'))
+ }
+},
+methods: {
+    submit(){
+        this.$validator.validateAll().then((result) => {
+        if (result) {
+        if(this.errors.any() == false){
+            this.$emit('to1push',this.form);
+            this.$emit('form1validity',2);
+        }
+        Object.keys(this.form).forEach(key => this.form[key]=null);
+          return;
+        }
+      });
+      },
+       clear () {
+           Object.keys(this.form).forEach(key => this.form[key]=null);
+        //    Object.keys(this.form).forEach(k => delete this.form[k])
+            //    console.log( Object.entries(this.form)),
+                //    this.form.ffname='',
+                //    this.form.flname= '',
+                //    this.form.fcontact='',
+                //    this.form.fmail='',
+                //    this.form.foccupasion='',
+                //    this.form.fincome='',
+
+                //    this.form.mfname='',
+                //    this.form.mlname= '',
+                //    this.form.mcontact='',
+                //    this.form.mmail='',
+                //    this.form.moccupasion='',
+                //    this.form.mincome='',
+
+                //    this.form.gfname='',
+                //    this.form.glname= '',
+                //    this.form.gcontact='',
+                //    this.form.gmail='',
+                //    this.form.goccupasion='',
+                //    this.form.gincome='',
+        this.$validator.reset()
+      },
+ save (date) {
+   this.$refs.menu.save(date)
+ },
+ onFileChange(e) {
+     var files = e.target.files || e.dataTransfer.files;
+     if (!files.length)
+       return;
+     this.createImage(files[0]);
+   },
+   createImage(file) {
+     var image = new Image();
+     var reader = new FileReader();
+     var vm = this;
+
+     reader.onload = (e) => {
+       vm.image = e.target.result;
+     };
+     reader.readAsDataURL(file);
+   },
+   removeImage: function (e) {
+     this.image = '';
+   }
+}
+   }
+</script>
+
