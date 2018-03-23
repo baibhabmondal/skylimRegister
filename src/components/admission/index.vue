@@ -1,6 +1,6 @@
 <template>
     <div id="app" >
-        <v-app id="inspire" style="background-color:white">
+        <v-app id="inspire" style="background-color: #EEEAEA">
             <navbar class="mb-2"></navbar>
 
                <v-layout row wrap >
@@ -8,7 +8,7 @@
 
                        
 
-                    <v-stepper v-model="e1"  style="box-shadow:0 0 0 0;background-color:#E9EBEE;">
+                    <v-stepper v-model="e1"  style="box-shadow:0 0 0 0;background-color:#EEEAEA;">
                         <v-stepper-header style="box-shadow:1px 0 0.5px 0">
                              <v-stepper-step step="1" :complete="e1 > 1" editable></v-stepper-step>
                             <v-divider></v-divider>

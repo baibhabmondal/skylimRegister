@@ -1,5 +1,5 @@
 <template>
-    <div style="width:100%;border:1px;background-color:#EEEEEE;font-family: 'Source Sans Pro', sans-serif; padding-top:2%;">
+    <div style="width:100%;border:1px;background-color:white;font-family: 'Source Sans Pro', sans-serif; padding-top:2%;">
         <form @submit.prevent="submit1">
             <h2 class="page-heading">STUDENT DETAILS</h2>
             <!--name first and last-->
@@ -7,7 +7,7 @@
             <v-layout row>
                 <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">Name</b></v-flex>
 
-                <v-flex xs4>
+                <v-flex xs4 lg5>
 
 
                     <!-- <v-text-field :error-messages="errors.collect('fname')" data-vv-name="fname" v-validate="'required|alpha'" label="First Name" required v-model="form.fname"></v-text-field> -->
@@ -19,10 +19,8 @@
 
             </v-layout>
             <v-layout>
-                <v-flex xs4>
-
-                </v-flex>
-                <v-flex xs4>
+            
+                <v-flex offset-xs4 xs4 lg5>
                     <input type="text" placeholder="lastname" name="lastname" v-validate="'required|alpha'" data-vv-delay="300" v-model="form.lname"
                         :class="{'input': true, }" class="textinput">
                     <i v-show="errors.has('lastname')"></i>
@@ -33,7 +31,7 @@
             <!--dob-->
             <v-layout row>
                 <v-flex pt-4 xs4 pr-4 text-xs-right> <b class="adjust">D.O.B</b></v-flex>
-                <v-flex xs4>
+                <v-flex xs4 lg5>
                     <input type="date" class="textinput" v-model="form.dob">
                 </v-flex>
             </v-layout>
@@ -57,7 +55,7 @@
             <!-- blood groups -->
             <v-layout row wrap>
                 <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">BLOOD GROUP</b></v-flex>
-                <v-flex xs4 pt-3>
+                <v-flex xs4 pt-3 lg5>
                     <div class="select-field" label="Select">
                         <select name="bloodgroup" label="Select" v-validate="'required'" data-vv-delay="300" v-model="form.bloodgroup">
                                             <option value="" hidden>Blood group</option>
@@ -73,7 +71,7 @@
             <!-- e-mail -->
             <v-layout row>
                 <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">E-MAIL</b></v-flex>
-                <v-flex xs4>
+                <v-flex xs4 lg5>
                     <input type="text" placeholder="E-mail" name="e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="form.mail"
                         :class="{'input': true, }" class="textinput">
                     <i v-show="errors.has('e-mail')"></i>
@@ -89,7 +87,7 @@
                     <b class="adjust">ADDRESS-1</b>
                 </v-flex>
 
-                <v-flex xs4>
+                <v-flex xs4 lg5>
                     <input type="text" placeholder="Address-1" name="address-1" v-validate="'required'" data-vv-delay="300" v-model="form.add1"
                         :class="{'input': true, }" class="textinput">
                     <i v-show="errors.has('address-1')"></i>
@@ -105,7 +103,7 @@
                 <v-flex pt-4 xs4 pr-4 text-xs-right>
                     <b class="adjust">CITY</b>
                 </v-flex>
-                <v-flex xs4 pt-3>
+                <v-flex xs4 pt-3 lg5>
                     <div class="select-field">
                         <select name="city-1" v-validate="'required'" data-vv-delay="300" v-model="form.add1city">
                                             <option value="" hidden>City</option>
@@ -124,7 +122,7 @@
                 <v-flex pt-4 xs4 pr-4 text-xs-right>
                     <b class="adjust">STATE</b>
                 </v-flex>
-                <v-flex xs4 pt-3>
+                <v-flex xs4 pt-3 lg5>
                     <div class="select-field">
                         <select name="state-1" v-validate="'required'" v-model="form.add1state">
                                             <option value="" hidden>State</option>
@@ -146,7 +144,7 @@
                 <v-flex pt-4 xs4 pr-4 text-xs-right>
                     <b class="adjust">PINCODE</b>
                 </v-flex>
-                <v-flex xs4>
+                <v-flex xs4 lg5>
                     <input type="text" placeholder="Pincode" name="pincode" v-validate="'required|digits:6'" data-vv-delay="300" v-model="form.add1pincode"
                         :class="{'input': true, }" class="textinput">
                     <i v-show="errors.has('pincode')"></i>
@@ -162,7 +160,7 @@
                 <v-flex pt-4 xs4 pr-4 text-xs-right>
                     <b class="adjust"> ADDRESS-2</b>
                 </v-flex>
-                <v-flex xs4>
+                <v-flex xs4 lg5>
                     <input type="text" placeholder="Address" name="address-2" v-model="form.add2" :class="{'input': true, }" class="textinput">
                 </v-flex>
 
@@ -174,7 +172,7 @@
                 <v-flex pt-4 xs4 pr-4 text-xs-right>
                     <b class="adjust">CITY</b>
                 </v-flex>
-                <v-flex xs4 pt-3>
+                <v-flex xs4 pt-3 lg5>
                     <div class="select-field">
                         <select name="city-2" v-model="form.add2city">
                                             <option value="" hidden>City</option>
@@ -190,7 +188,7 @@
                 <v-flex pt-4 xs4 pr-4 text-xs-right>
                     <b class="adjust">STATE</b>
                 </v-flex>
-                <v-flex xs4 pt-3>
+                <v-flex xs4 pt-3 lg5>
                     <div class="select-field">
                         <select name="state-2" v-model="form.add2state">
                                             <option value="" hidden>State</option>
@@ -208,7 +206,7 @@
                 <v-flex pt-4 xs4 pr-4 text-xs-right>
                     <b class="adjust">PINCODE</b>
                 </v-flex>
-                <v-flex xs4>
+                <v-flex xs4 lg5>
                     <input type="text" placeholder="pincode" name="pincode-2" v-model="form.add2pincode" :class="{'input': true, }" class="textinput">
                 </v-flex>
             </v-layout>
@@ -218,7 +216,7 @@
                 <v-flex pt-4 xs4 pr-4 text-xs-right>
                     <b class="adjust">CONTACT DETAILS</b>
                 </v-flex>
-                <v-flex xs4>
+                <v-flex xs4 lg5>
                     <input type="text" placeholder="Contact 1" name="contact1" v-validate="'required|digits:10'" data-vv-delay="300" v-model="form.contact1"
                         :class="{'input': true, }" class="textinput">
                     <i v-show="errors.has('contact1')"></i>
@@ -226,10 +224,7 @@
                 </v-flex>
             </v-layout>
             <v-layout row wrap>
-                <v-flex xs4>
-
-                </v-flex>
-                <v-flex xs4>
+                <v-flex xs4 lg5 offset-xs4>
                     <input type="text" placeholder="Contact 2" name="contact2" v-model="form.contact2" :class="{'input': true, }" class="textinput">
                 </v-flex>
             </v-layout>
@@ -330,6 +325,8 @@
 </script>
 
 <style scoped>
+    
+   
 
     #container{
         padding-top: 3%;
@@ -337,15 +334,15 @@
 
 
     .page-heading {
-        border-style: solid;
-        /* border-width: 0.5px 0 0.5px; */
+       
+     
         font-family: 'Source Sans Pro', sans-serif; 
         font-weight: 500;
-        border-color: #acabab;
-        width: 92%;
+        color: white;
+        width: 70%;
         display: block;
-        background-color: #acabab;
-        margin-left: 4%;
+        background-color: #81D8D0;
+        margin-left: 15%;
         padding: 0.2% 0;
         box-shadow: 2px 2px 4px -1px rgba(0,0,0,0.75);
         
@@ -355,7 +352,7 @@
     .textinput {
         border-style: solid;
         border-color: #F3EFE7;
-        background-color: white;
+        background-color: #EEEAEA;
         border-width: 0.1px;
         width: 100%;
         padding: 5px 5px 5px 10px;
@@ -365,6 +362,7 @@
         display: table-cell;
         box-shadow: 2px 2px 4px -1px rgba(0,0,0,0.75);
         margin-left: 10%;
+        /* padding-right: 100px; */
         /* box-shadow: 0.1px 0.1px 0.1px 0.1px black ; */
     }
     /* Main content style
@@ -392,7 +390,7 @@
          margin-left: 10%;
         padding: 0px;
         padding-left: 5px;
-        background-color: white;
+        background-color: #EEEAEA;
         position: relative;
         z-index: 1;
         box-shadow: 2px 2px 4px -1px rgba(0,0,0,0.75);
