@@ -1,7 +1,7 @@
 <template>
     <div id="navbar">
     
-        <v-toolbar dark color="primary">
+        <v-toolbar dark blue>
         <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
