@@ -8,7 +8,7 @@
 
                        
                        <v-stepper v-model="e1"  style="box-shadow:0 0 0 0;background-color:#FFFBFB;">
-                            <div >
+                            <div style="display:none;">
                         <v-stepper-header style="box-shadow:1px 0 0.5px 0">
                              <v-stepper-step step="1" :complete="e1 > 1" editable></v-stepper-step>
                             <v-divider></v-divider>

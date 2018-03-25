@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-<div class="arrow-steps clearfix" style="margin-left:8%">
+<div class="arrow-steps clearfix" style="margin: 0 0 5% 0; width: 100%;">
   <div class="step current"> <span> Step 1</span> </div>
     <div class="step"> <span>Step 2</span> </div>
     <div class="step"> <span> Step 3</span> </div>
@@ -427,7 +427,7 @@
 	cursor: default;
 	margin: 0 3px;
 	padding: 10px 10px 10px 30px;
-	min-width: 180px;
+	min-width: 24.3%;
 	float: left;
 	position: relative;
 	background-color: #d9e3f7;
@@ -437,6 +437,52 @@
 	user-select: none; 
   transition: background-color 0.2s ease;
 }
+
+
+ @media screen and (max-width: 800px) {
+  
+  .arrow-steps .step {
+	font-size: 14px;
+	text-align: center;
+	color: #666;
+	cursor: default;
+	margin: 0 3px;
+	padding: 10px 10px 10px 30px;
+	min-width: 24.1%;
+	float: left;
+	position: relative;
+	background-color: #d9e3f7;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 
+  transition: background-color 0.2s ease;
+}
+
+}
+
+@media screen and (max-width: 480px) {
+  
+  .arrow-steps .step {
+	font-size: 14px;
+	text-align: center;
+	color: #666;
+	cursor: default;
+	margin: 0 3px;
+	padding: 10px 10px 10px 30px;
+	min-width: 23.3%;
+	float: left;
+	position: relative;
+	background-color: #d9e3f7;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 
+  transition: background-color 0.2s ease;
+}
+
+}
+
 
 .arrow-steps .step:after,
 .arrow-steps .step:before {
@@ -451,7 +497,7 @@
 	border-left: 17px solid #d9e3f7;	
 	z-index: 2;
   transition: border-color 0.2s ease;
-}
+} 
 
 .arrow-steps .step:before {
 	right: auto;
@@ -468,7 +514,10 @@
 	border-top-left-radius: 4px;
 	border-bottom-left-radius: 4px;
 }
-
+.arrow-steps .step:last-child:after {
+	/* border-right: 1px solid black; */
+  display: none;
+}
 .arrow-steps .step span {
 	position: relative;
 }
