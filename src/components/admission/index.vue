@@ -1,14 +1,14 @@
 <template>
     <div id="app" >
-        <v-app id="inspire" style="background-color: #EEEAEA">
+        <v-app id="inspire" style="background-color:#455553">
             <navbar class="mb-2"></navbar>
 
                <v-layout row wrap >
                    <v-flex lg8 offset-lg2>
 
                        
-
-                    <v-stepper v-model="e1"  style="box-shadow:0 0 0 0;background-color:#EEEAEA;">
+                       <v-stepper v-model="e1"  style="box-shadow:0 0 0 0;background-color:#FFFBFB;">
+                            <div >
                         <v-stepper-header style="box-shadow:1px 0 0.5px 0">
                              <v-stepper-step step="1" :complete="e1 > 1" editable></v-stepper-step>
                             <v-divider></v-divider>
@@ -20,7 +20,7 @@
                             <v-divider></v-divider>
                             <v-stepper-step step="5" editable></v-stepper-step>
                         </v-stepper-header>
-                        
+                        </div>
                         <v-stepper-items style="padding:0px" >
                             <v-stepper-content step="1" style="width:100%;padding:0px;margin:0px" >
                                 <intro></intro>
