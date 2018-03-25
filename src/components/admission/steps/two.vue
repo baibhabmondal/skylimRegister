@@ -5,7 +5,7 @@
       <div id="container">
       <!-- first and last name of father -->
       <v-layout row>
-        <v-flex pt-4 xs4 text-xs-right pr-4><b>Name:</b></v-flex>
+        <v-flex pt-4 xs4  text-xs-right pr-4><b>Name:</b></v-flex>
         <v-flex xs4>
 
           <!-- <v-text-field :error-messages="errors.collect('name')" data-vv-name="name" v-validate="'required|alpha'" label="First Name" required v-model="form.ffname" ></v-text-field> -->
@@ -333,7 +333,6 @@
 <style scoped>
   .main {
     width: 100%;
-    border: 1px solid #BDB6B6;
     background-color: #FFFBFB;
     font-family: 'Source Sans Pro', sans-serif;
     padding-top: 2%;

@@ -198,7 +198,6 @@
 <style scoped>
   .main {
     width: 100%;
-    border: 1px solid #BDB6B6;
     background-color: #FFFBFB;
     font-family: 'Source Sans Pro', sans-serif;
     padding-top: 2%;
