@@ -305,7 +305,9 @@
         this.form.gfname = this.gfname;
         this.form.glname = this.glname;
         this.form.gcontact = this.gcontact;
-        this.form.glname = this.glname;
+        this.form.gmail = this.gmail;
+        this.form.goccupation = this.goccupation;
+        this.form.gincome = this.gincome;
 
 
       },

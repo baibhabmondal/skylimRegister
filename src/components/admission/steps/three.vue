@@ -23,7 +23,7 @@
           <b>Name of the institution :</b>
         </v-flex>
         <v-flex xs4 lg4>
-          <input v-model="form.xinstitute" type="text" placeholder="Institution name" name="X institution" v-validate="'required|alpha_spaces'"
+          <input v-model="xinstitute" type="text" placeholder="Institution name" name="X institution" v-validate="'required|alpha_spaces'"
             data-vv-delay="300" :class="{'input': true, }" class="textinput">
           <span v-show="errors.has('X institution')" style="color:red;">{{ errors.first('X institution') }}</span>
         </v-flex>
@@ -34,7 +34,7 @@
           <b>Name of the board :</b>
         </v-flex>
         <v-flex xs4 lg4>
-          <input v-model="form.xboard" type="text" placeholder="Name of the board" name="X board" v-validate="'required|alpha_spaces'"
+          <input v-model="xboard" type="text" placeholder="Name of the board" name="X board" v-validate="'required|alpha_spaces'"
             data-vv-delay="300" :class="{'input': true, }" class="textinput">
           <span v-show="errors.has('X board')" style="color:red;">{{ errors.first('X board') }}</span>
         </v-flex>
@@ -45,7 +45,7 @@
           <b>Marks scored :</b>
         </v-flex>
         <v-flex xs4 lg4>
-          <input v-model="form.xmarks" type="text" placeholder="Marks scored" name="X marks" v-validate="'required|alpha_spaces'" data-vv-delay="300"
+          <input v-model="xmarks" type="text" placeholder="Marks scored" name="X marks" v-validate="'required|alpha_spaces'" data-vv-delay="300"
             :class="{'input': true, }" class="textinput">
           <span v-show="errors.has('X marks')" style="color:red;">{{ errors.first('X marks') }}</span>
           <!-- <v-text-field label="First Name"  required ></v-text-field> -->
@@ -58,7 +58,7 @@
         </v-flex>
         <v-flex xs4 lg4 pt-3>
           <div class="select-field">
-            <select v-model="form.xpassyear" name="X passing year" v-validate="'required'">
+            <select v-model="xpassyear" name="X passing year" v-validate="'required'">
                         <option  value="" hidden>State</option>
                         <option  v-for="item in items">{{item.text}}</option>
                     </select>
@@ -79,7 +79,7 @@
           <b>Name of the institution :</b>
         </v-flex>
         <v-flex xs4 lg4>
-          <input v-model="form.xiiinstitute" type="text" placeholder="Institution name" name="XII institution" v-validate="'required|alpha_spaces'"
+          <input v-model="xiiinstitute" type="text" placeholder="Institution name" name="XII institution" v-validate="'required|alpha_spaces'"
             data-vv-delay="300" :class="{'input': true, }" class="textinput">
           <span v-show="errors.has('XII institution')" style="color:red;">{{ errors.first('XII institution') }}</span>
         </v-flex>
@@ -90,7 +90,7 @@
           <b>Name of the board :</b>
         </v-flex>
         <v-flex xs4 lg4>
-          <input v-model="form.xiiboard" type="text" placeholder="Name of the board" name="XII board" v-validate="'required|alpha_spaces'"
+          <input v-model="xiiboard" type="text" placeholder="Name of the board" name="XII board" v-validate="'required|alpha_spaces'"
             data-vv-delay="300" :class="{'input': true, }" class="textinput">
           <span v-show="errors.has('XII board')" style="color:red;">{{ errors.first('XII board') }}</span>
         </v-flex>
@@ -101,7 +101,7 @@
           <b>Marks scored :</b>
         </v-flex>
         <v-flex xs4 lg4>
-          <input v-model="form.xiimarks" type="text" placeholder="Marks scored" name="XII marks" v-validate="'required|alpha_spaces'"
+          <input v-model="xiimarks" type="text" placeholder="Marks scored" name="XII marks" v-validate="'required|alpha_spaces'"
             data-vv-delay="300" :class="{'input': true, }" class="textinput">
           <span v-show="errors.has('XII marks')" style="color:red;">{{ errors.first('XII marks') }}</span>
         </v-flex>
@@ -113,7 +113,7 @@
         </v-flex>
         <v-flex xs4 lg4 pt-3>
           <div class="select-field">
-            <select v-model="form.xiipassyear" name="XII passing year" v-validate="'required'">
+            <select v-model="xiipassyear" name="XII passing year" v-validate="'required'">
                     <option  value="" hidden>State</option>
                     <option  v-for="item in items">{{item.text}}</option>
                 </select>
@@ -166,6 +166,15 @@
             return;
           }
         });
+           this.form.xinstitute = this.xinstitute;
+            this.form.xboard = this.xboard;
+            this.form.xmarks = this.xmarks;
+            this.form.xpassyear = this.xpassyear;
+            this.form.xiiinstitute = this.xiiinstitute;
+            this.form.xiiboard = this.xiiboard;
+            this.form.xiimarks = this.xiimarks;
+            this.form.xiipassyear = this.xiipassyear;
+
       },
       res: function () {
 
@@ -187,6 +196,15 @@
     },
     data() {
       return {
+
+         xinstitute: "",
+        xboard: "",
+        xmarks: "",
+        xpassyear: "",
+        xiiinstitute: "",
+        xiiboard: "",
+        xiimarks: "",
+        xiipassyear: "",
 
       }
     },

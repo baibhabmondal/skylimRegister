@@ -9,6 +9,7 @@
     <form @submit.prevent="submit1">
       <h2 class="page-heading">STUDENT DETAILS</h2>
 
+
       <!--name first and last-->
       <div id="container">
 
@@ -19,7 +20,7 @@
           <v-flex xs4 lg5>
             <!-- <v-text-field :error-messages="errors.collect('fname')" data-vv-name="fname" v-validate="'required|alpha'" label="First Name" required v-model="form.fname"></v-text-field> -->
             <input required type="text" placeholder="First Name" name="firstname" v-validate="'required|alpha_spaces'" data-vv-delay="300"
-              v-model="form.fname" :class="{'input': true, }" class="textinput">
+              v-model="fname" :class="{'input': true, }" class="textinput">
             <i v-show="errors.has('firstname')"></i>
             <span v-show="errors.has('firstname')" style="color:red;">{{ errors.first('firstname') }}</span>
           </v-flex>
@@ -28,7 +29,7 @@
         <v-layout>
 
           <v-flex offset-xs4 xs4 lg5>
-            <input type="text" placeholder="Last Name" name="lastname" v-validate="'required|alpha'" data-vv-delay="300" v-model="form.lname"
+            <input type="text" placeholder="Last Name" name="lastname" v-validate="'required|alpha'" data-vv-delay="300" v-model="lname"
               :class="{'input': true, }" class="textinput">
             <i v-show="errors.has('lastname')"></i>
             <span v-show="errors.has('lastname')" style="color:red;">{{ errors.first('lastname') }}</span>
@@ -39,7 +40,7 @@
         <v-layout row>
           <v-flex pt-4 xs4 pr-4 text-xs-right> <b class="adjust">D.O.B:</b></v-flex>
           <v-flex xs4 lg5>
-            <input type="date" class="textinput" v-model="form.dob">
+            <input type="date" class="textinput" v-model="dob">
           </v-flex>
         </v-layout>
 
@@ -64,7 +65,7 @@
           <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">BLOOD GROUP:</b></v-flex>
           <v-flex xs4 pt-3 lg5>
             <div class="select-field" label="Select">
-              <select name="bloodgroup" label="Select" v-validate="'required'" data-vv-delay="300" v-model="form.bloodgroup">
+              <select name="bloodgroup" label="Select" v-validate="'required'" data-vv-delay="300" v-model="bloodgroup">
                                             <option value="" hidden>Blood group</option>
                                             <option  v-for="item in items">{{item.text}}</option>
                                     </select>
@@ -79,7 +80,7 @@
         <v-layout row>
           <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">E-MAIL:</b></v-flex>
           <v-flex xs4 lg5>
-            <input type="text" placeholder="E-mail" name="e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="form.mail"
+            <input type="text" placeholder="E-mail" name="e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="mail"
               :class="{'input': true, }" class="textinput">
             <i v-show="errors.has('e-mail')"></i>
             <span v-show="errors.has('e-mail')" style="color:red;">{{ errors.first('e-mail') }}</span>
@@ -95,7 +96,7 @@
           </v-flex>
 
           <v-flex xs4 lg5>
-            <input type="text" placeholder="Address-1" name="address-1" v-validate="'required'" data-vv-delay="300" v-model="form.add1"
+            <input type="text" placeholder="Address-1" name="address-1" v-validate="'required'" data-vv-delay="300" v-model="add1"
               :class="{'input': true, }" class="textinput">
             <i v-show="errors.has('address-1')"></i>
             <span v-show="errors.has('address-1')" style="color:red;">{{ errors.first('address-1') }}</span>
@@ -112,7 +113,7 @@
           </v-flex>
           <v-flex xs4 pt-3 lg5>
             <div class="select-field">
-              <select name="city-1" v-validate="'required'" data-vv-delay="300" v-model="form.add1city">
+              <select name="city-1" v-validate="'required'" data-vv-delay="300" v-model="add1city">
                                             <option value="" hidden>City</option>
                                             <option  v-for="item in items">{{item.text}}</option>
                                     </select>
@@ -131,7 +132,7 @@
           </v-flex>
           <v-flex xs4 pt-3 lg5>
             <div class="select-field">
-              <select name="state-1" v-validate="'required'" v-model="form.add1state">
+              <select name="state-1" v-validate="'required'" v-model="add1state">
                                             <option value="" hidden>State</option>
                                             <option  v-for="item in items">{{item.text}}</option>
                                     </select>
@@ -152,7 +153,7 @@
             <b class="adjust">PINCODE:</b>
           </v-flex>
           <v-flex xs4 lg5>
-            <input type="text" placeholder="Pincode" name="pincode" v-validate="'required|digits:6'" data-vv-delay="300" v-model="form.add1pincode"
+            <input type="text" placeholder="Pincode" name="pincode" v-validate="'required|digits:6'" data-vv-delay="300" v-model="add1pincode"
               :class="{'input': true, }" class="textinput">
             <i v-show="errors.has('pincode')"></i>
             <span v-show="errors.has('pincode')" style="color:red;">{{ errors.first('pincode') }}</span>
@@ -168,7 +169,7 @@
             <b class="adjust"> ADDRESS-2:</b>
           </v-flex>
           <v-flex xs4 lg5>
-            <input type="text" placeholder="Address" name="address-2" v-model="form.add2" :class="{'input': true, }" class="textinput">
+            <input type="text" placeholder="Address" name="address-2" v-model="add2" :class="{'input': true, }" class="textinput">
           </v-flex>
 
         </v-layout>
@@ -181,7 +182,7 @@
           </v-flex>
           <v-flex xs4 pt-3 lg5>
             <div class="select-field">
-              <select name="city-2" v-model="form.add2city">
+              <select name="city-2" v-model="add2city">
                                             <option value="" hidden>City</option>
                                             <option  v-for="items in items">{{items.text}}</option>
                                     </select>
@@ -197,7 +198,7 @@
           </v-flex>
           <v-flex xs4 pt-3 lg5>
             <div class="select-field">
-              <select name="state-2" v-model="form.add2state">
+              <select name="state-2" v-model="add2state">
                                             <option value="" hidden>State</option>
                                             <option  v-for="states in states">{{states.text}}</option>
                                     </select>
@@ -214,7 +215,7 @@
             <b class="adjust">PINCODE:</b>
           </v-flex>
           <v-flex xs4 lg5>
-            <input type="text" placeholder="Pincode" name="pincode-2" v-model="form.add2pincode" :class="{'input': true, }" class="textinput">
+            <input type="text" placeholder="Pincode" name="pincode-2" v-model="add2pincode" :class="{'input': true, }" class="textinput">
           </v-flex>
         </v-layout>
 
@@ -224,7 +225,7 @@
             <b class="adjust">CONTACT DETAILS:</b>
           </v-flex>
           <v-flex xs4 lg5>
-            <input type="text" placeholder="Contact 1" name="contact1" v-validate="'required|digits:10'" data-vv-delay="300" v-model="form.contact1"
+            <input type="text" placeholder="Contact 1" name="contact1" v-validate="'required|digits:10'" data-vv-delay="300" v-model="contact1"
               :class="{'input': true, }" class="textinput">
             <i v-show="errors.has('contact1')"></i>
             <span v-show="errors.has('contact1')" style="color:red;">{{ errors.first('contact1') }}</span>
@@ -232,7 +233,7 @@
         </v-layout>
         <v-layout row wrap>
           <v-flex xs4 lg5 offset-xs4>
-            <input type="text" placeholder="Contact 2" name="contact2" v-model="form.contact2" :class="{'input': true, }" class="textinput">
+            <input type="text" placeholder="Contact 2" name="contact2" v-model="contact2" :class="{'input': true, }" class="textinput">
           </v-flex>
         </v-layout>
         <!-- buttons-->
@@ -276,6 +277,24 @@
     data() {
       return {
         menu: false,
+        fname: "",
+        lname: "",
+        dob: "",
+        bloodgroup: "",
+        mail: "",
+        add1: "",
+        add1city: "",
+        add1state: "",
+        add1pincode: "",
+        add2: "",
+        add2city: "",
+        add2state: "",
+        add2pincode: "",
+        contact1: "",
+        contact2: "",
+
+
+
         // valid: false,
 
       }
@@ -290,6 +309,9 @@
     },
     methods: {
       submit() {
+
+        
+
         this.$validator.validateAll().then((result) => {
           if (result) {
             if (this.errors.any() == false) {
@@ -298,6 +320,17 @@
             return;
           }
         });
+         this.form.fname = this.fname;
+          this.form.lname = this.lname;
+          this.form.dob = this.dob;
+          this.form.bloodgroup = this.bloodgroup;
+          this.form.mail = this.mail;
+          this.form.add1 = this.add1;
+          this.form.add1city = this.add1city;
+          this.form.add1state = this.add1state;
+          this.form.add2pincode = this.add2pincode;
+          this.form.contact1 = this.contact1;
+          this.form.contact2 = this.contact2;
       },
       submit1() {
         this.$validator.validateAll();
