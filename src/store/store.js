@@ -53,6 +53,8 @@ export const store = new Vuex.Store({
         xiiboard:"",
         xiimarks:"",
         xiipassyear:"",
+        // attachments
+        
         
     },
 
@@ -66,7 +68,17 @@ export const store = new Vuex.Store({
       { text: "AB negative" },
       { text: "AB positive" }
     ],
-    allstudents:[]
+    allstudents:[],
+    indianstates: [
+      { text: "O positive" },
+      { text: "O negative" },
+      { text: "A negative" },
+      { text: "A positive" },
+      { text: "B  negative" },
+      { text: "B positive" },
+      { text: "AB negative" },
+      { text: "AB positive" }
+    ]
   },
     // mutations: {
     //             pushing: (state, payload) => {

@@ -16,7 +16,7 @@
 
           <!-- <v-text-field :error-messages="errors.collect('name')" data-vv-name="name" v-validate="'required|alpha'" label="First Name" required v-model="form.ffname" ></v-text-field> -->
           <input type="text" placeholder="First Name" name="fathers firstname" v-validate="'required|alpha_spaces'" data-vv-delay="300"
-            v-model="form.ffname" :class="{'input': true, }" class="textinput">
+            v-model="ffname" :class="{'input': true, }" class="textinput">
           <!-- <i v-show="errors.has('firstname')"></i> -->
           <span v-show="errors.has('fathers firstname')" style="color:red;">{{ errors.first('fathers firstname') }}</span>
 
@@ -26,7 +26,7 @@
         <v-flex pt-4 xs4 text-xs-right pr-4></v-flex>
         <v-flex xs4>
           <input type="text" placeholder="Last Name" name="fathers lastname" v-validate="'required|alpha_spaces'" data-vv-delay="300"
-            v-model="form.flname" :class="{'input': true, }" class="textinput">
+            v-model="flname" :class="{'input': true, }" class="textinput">
           <i v-show="errors.has('lastname')"></i>
           <span v-show="errors.has('fathers lastname')" style="color:red;">{{ errors.first('fathers lastname') }}</span>
 
@@ -38,7 +38,7 @@
           <b>Contact number:</b>
         </v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="Contact 1" name="father contact" v-validate="'required|digits:10'" data-vv-delay="300" v-model="form.fcontact"
+          <input type="text" placeholder="Contact 1" name="father contact" v-validate="'required|digits:10'" data-vv-delay="300" v-model="fcontact"
             :class="{'input': true, }" class="textinput">
           <!-- <i v-show="errors.has('contact1')"></i> -->
           <span v-show="errors.has('father contact')" style="color:red;">{{ errors.first('father contact') }}</span>
@@ -50,7 +50,7 @@
 
         <v-flex xs4 pt-4 text-xs-right pr-4><b>E-mail:</b></v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="E-mail" name="father e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="form.fmail"
+          <input type="text" placeholder="E-mail" name="father e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="fmail"
             :class="{'input': true, }" class="textinput">
           <i v-show="errors.has('e-mail')"></i>
           <span v-show="errors.has('father e-mail')" style="color:red;">{{ errors.first('father e-mail') }}</span>
@@ -64,7 +64,7 @@
         </v-flex>
         <v-flex xs4 pt-3>
           <div class="select-field">
-            <select name="father occupation" v-validate="'required'" v-model="form.foccupation">
+            <select name="father occupation" v-validate="'required'" v-model="foccupation">
                                             <option value="" hidden>Occupation</option>
                                             <option  v-for="items in items">{{items.text}}</option>
                                     </select>
@@ -78,7 +78,7 @@
           <b>Income:</b>
         </v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="Income" name="father income" v-validate="'required|numeric'" data-vv-delay="300" v-model="form.fincome"
+          <input type="text" placeholder="Income" name="father income" v-validate="'required|numeric'" data-vv-delay="300" v-model="fincome"
             :class="{'input': true, }" class="textinput">
           <span v-show="errors.has('father income')" style="color:red;">{{ errors.first('father income') }}</span>
 
@@ -99,7 +99,7 @@
         <v-flex xs4>
 
           <input type="text" placeholder="First Name" name="mother firstname" v-validate="'required|alpha_spaces'" data-vv-delay="300"
-            v-model="form.mfname" :class="{'input': true, }" class="textinput">
+            v-model="mfname" :class="{'input': true, }" class="textinput">
           <span v-show="errors.has('mother firstname')" style="color:red;">{{ errors.first('mother firstname') }}</span>
 
         </v-flex>
@@ -112,7 +112,7 @@
         </v-flex>
         <v-flex xs4>
           <input type="text" placeholder="Last Name" name="mother lastname" v-validate="'required|alpha_spaces'" data-vv-delay="300"
-            v-model="form.mlname" :class="{'input': true, }" class="textinput">
+            v-model="mlname" :class="{'input': true, }" class="textinput">
           <!-- <i v-show="errors.has('lastname')"></i> -->
           <span v-show="errors.has('mother lastname')" style="color:red;">{{ errors.first('mother lastname') }}</span>
 
@@ -129,7 +129,7 @@
           <b>Contact number:</b>
         </v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="Contact 1" name="mother contact" v-validate="'required|digits:10'" data-vv-delay="300" v-model="form.mcontact"
+          <input type="text" placeholder="Contact 1" name="mother contact" v-validate="'required|digits:10'" data-vv-delay="300" v-model="mcontact"
             :class="{'input': true, }" class="textinput">
           <!-- <i v-show="errors.has('contact1')"></i> -->
           <span v-show="errors.has('mother contact')" style="color:red;">{{ errors.first('mother contact') }}</span>
@@ -141,7 +141,7 @@
 
         <v-flex xs4 pt-4 text-xs-right pr-4><b>E-mail:</b></v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="E-mail" name="mother e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="form.mmail"
+          <input type="text" placeholder="E-mail" name="mother e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="mmail"
             :class="{'input': true, }" class="textinput">
           <!-- <i v-show="errors.has('e-mail')"></i> -->
           <span v-show="errors.has('mother e-mail')" style="color:red;">{{ errors.first('mother e-mail') }}</span>
@@ -155,7 +155,7 @@
         </v-flex>
         <v-flex xs4 pt-3>
           <div class="select-field">
-            <select name="mother occupation" v-validate="'required'" v-model="form.moccupation">
+            <select name="mother occupation" v-validate="'required'" v-model="moccupation">
                                             <option value="" hidden>Occupation</option>
                                             <option  v-for="items in items">{{items.text}}</option>
                                     </select>
@@ -170,7 +170,7 @@
           <b>Income:</b>
         </v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="Income" name="mother income" v-validate="'required|numeric'" data-vv-delay="300" v-model="form.mincome"
+          <input type="text" placeholder="Income" name="mother income" v-validate="'required|numeric'" data-vv-delay="300" v-model="mincome"
             :class="{'input': true, }" class="textinput">
           <i v-show="errors.has('income')"></i>
           <span v-show="errors.has('mother income')" style="color:red;">{{ errors.first('mother income') }}</span>
@@ -188,7 +188,7 @@
         <v-flex pt-4 xs4 text-xs-right pr-4><b>Name:</b></v-flex>
 
         <v-flex xs4>
-          <input type="text" placeholder="First Name" name="guardian firstname" v-model="form.gfname" :class="{'input': true, }" class="textinput">
+          <input type="text" placeholder="First Name" name="guardian firstname" v-model="gfname" :class="{'input': true, }" class="textinput">
         </v-flex>
 
       </v-layout>
@@ -198,7 +198,7 @@
 
         </v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="Last Name" name="guardian lastname" v-model="form.glname" :class="{'input': true, }" class="textinput">
+          <input type="text" placeholder="Last Name" name="guardian lastname" v-model="glname" :class="{'input': true, }" class="textinput">
         </v-flex>
 
 
@@ -210,7 +210,7 @@
           <b>Contact number:</b>
         </v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="Contact 1" name="guardian contact" v-model="form.gcontact" :class="{'input': true, }" class="textinput">
+          <input type="text" placeholder="Contact 1" name="guardian contact" v-model="gcontact" :class="{'input': true, }" class="textinput">
           <i v-show="errors.has('contact1')"></i>
         </v-flex>
       </v-layout>
@@ -219,7 +219,7 @@
 
         <v-flex xs4 pt-4 text-xs-right pr-4><b>E-mail:</b></v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="E-mail" name="guardian e-mail" v-model="form.gmail" :class="{'input': true, }" class="textinput">
+          <input type="text" placeholder="E-mail" name="guardian e-mail" v-model="gmail" :class="{'input': true, }" class="textinput">
           <i v-show="errors.has('e-mail')"></i>
         </v-flex>
       </v-layout>
@@ -230,7 +230,7 @@
         </v-flex>
         <v-flex xs4 pt-3>
           <div class="select-field">
-            <select name="guardian occupation" v-model="form.goccupation">
+            <select name="guardian occupation" v-model="goccupation">
                                         <option value="" hidden>Occupation</option>
                                         <option  v-for="items in items">{{items.text}}</option>
                                 </select>
@@ -243,7 +243,7 @@
           <b>Income:</b>
         </v-flex>
         <v-flex xs4>
-          <input type="text" placeholder="Income" name="guardian income" v-model="form.gincome" :class="{'input': true, }" class="textinput">
+          <input type="text" placeholder="Income" name="guardian income" v-model="gincome" :class="{'input': true, }" class="textinput">
         </v-flex>
 
       </v-layout>
@@ -290,6 +290,24 @@
             return;
           }
         });
+        this.form.ffname = this.ffname;
+        this.form.lfname = this.lfname;
+        this.form.fcontact = this.fcontact;
+        this.form.ffmail = this.fmail;
+        this.form.ffoccupation = this.foccupation;
+        this.form.fincome = this.fincome;
+        this.form.mfname = this.mfname;
+        this.form.mlname = this.mlname;
+        this.form.mcontact = this.mcontact;
+        this.form.mmail = this.mmail;
+        this.form.moccupation = this.moccupation;
+        this.form.mincome = this.mincome;
+        this.form.gfname = this.gfname;
+        this.form.glname = this.glname;
+        this.form.gcontact = this.gcontact;
+        this.form.glname = this.glname;
+
+
       },
       submit1() {
         this.$validator.validateAll();
@@ -320,7 +338,24 @@
     },
     data() {
       return {
-
+          ffname: "",
+          flname: "",
+          fcontact: "",
+          fmail: "",
+          foccupation: "",
+          fincome: "",
+          mfname: "",
+          mlname: "",
+          mcontact: "",
+          mmail: "",
+          moccupation: "",
+          mincome: "",
+          gfname: "",
+          glname: "",
+          gcontact: "",
+          gmail: "",
+          goccupation: "",
+          gincome: "",
       }
     },
     mounted() {

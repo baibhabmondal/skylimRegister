@@ -8,24 +8,29 @@
             <div class="step current"> <span>Step 4</span> </div>
         </div>
         <div style="border:1px solid black">
-            <label for="logo" class="control-label">Attachments</label>
+            <label>Attachments</label>
             <br><br>
-             <div class="col-md-12">
-                <input type="file" multiple="multiple" id="attachments" @change="uploadFieldChange">
+             <div>
+                 <v-btn raised style="background:#666; color: white; " @click="onPickFile">UPLOAD</v-btn>
+                <input type="file" id="attachments" ref="fileInput" style="display: none;" @change="uploadFieldChange">
                 <hr>
-                <div class="col-md-12">
-                    <div class="attachment-holder animated fadeIn" v-cloak v-for="(attachment, index) in attachments"> 
-                        <span class="label label-primary">{{ (index+1)+':-'+attachment.name + ' (' + Number((attachment.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span> 
-                        <span class="" @click="removeAttachment(attachment)"><button class="btn btn-xs btn-danger">Remove</button></span>
+                <div>
+                    <div v-for="(attachment, index) in attachments"> 
+                        <span >{{ (index+1)+':-'+attachment.name + ' (' + Number((attachment.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span> 
+                        <span  @click="removeAttachment(attachment)"><button>Remove</button></span>
                     </div>
+                    <v-btn @click="submit">SUBMIT</v-btn>
                 </div>
              </div>
              <br><br>
-             <button class="btn btn-primary" >Upload</button>
+            <!-- <v-btn style="background:#455553; color: white;" raised @click="onPickFile">UPLOAD</v-btn>
+            <input type="file" style="display: none;" ref="fileInput" accept="image/*" @change="onFilePicked">
+            <img :src="imageURL" height="150"> -->
         </div>
     </div>
 </template>
 <script>
+    import axios from 'axios'
     export default {
         props: [
             'settings'
@@ -33,6 +38,8 @@
         data() {
             return {
                 // You can store all your files here
+                imageURL: "",
+                image: null,
                 attachments: [],
                 // Each file will need to be sent as FormData element
                 data: new FormData(),
@@ -44,8 +51,21 @@
         watch: {
         },
         computed: {
+            form (){
+                return this.$store.state.form;
+            }
         },
         methods: {
+
+
+          onPickFile(){
+         
+            this.$refs.fileInput.click()
+
+          },
+
+
+
             getAttachmentSize() {
                 
                 this.upload_size = 0; // Reset to beginningƒ
@@ -87,32 +107,36 @@
                 // Reset the form to avoid copying these files multiple times into this.attachments
                 document.getElementById("attachments").value = [];
             },
-            // submit() {
-            //     this.prepareFields();
-            //     var config = {
-            //         headers: { 'Content-Type': 'multipart/form-data' } ,
-            //         onUploadProgress: function(progressEvent) {
-            //             this.percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
-            //             this.$forceUpdate();
-            //         }.bind(this)
-            //     };
-            //     // Make HTTP request to store announcement
-            //     axios.post(this.settings.file_management.upload_files, this.data, config)
-            //     .then(function (response) {
-            //         console.log(response);
-            //         if (response.data.success) {
-            //             console.log('Successfull Upload');
-            //             toastr.success('Files Uploaded!', 'Success');
-            //             this.resetData();
-            //         } else {
-            //             console.log('Unsuccessful Upload');
-            //             this.errors = response.data.errors;
-            //         }
-            //     }.bind(this)) // Make sure we bind Vue Component object to this funtion so we get a handle of it in order to call its other methods
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
-            // },
+            submit() {
+                
+            //    this.form.attachments[0] = this.attachments[0];
+               console.log(this.form)
+                // this.prepareFields();
+                //  console.log(this.data)
+                // var config = {
+                //     headers: { 'Content-Type': 'multipart/form-data' } ,
+                //     onUploadProgress: function(progressEvent) {
+                //         this.percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+                //         this.$forceUpdate();
+                //     }.bind(this)
+                // };
+                // // Make HTTP request to store announcement
+                // axios.post('http://aadii.104', this.data, config)
+                // .then(function (response) {
+                //     console.log(response);
+                //     if (response.data.success) {
+                //         console.log('Successfull Upload');
+                //         // toastr.success('Files Uploaded!', 'Success');
+                //         this.resetData();
+                //     } else {
+                //         console.log('Unsuccessful Upload');
+                //         this.errors = response.data.errors;
+                //     }
+                // }.bind(this)) // Make sure we bind Vue Component object to this funtion so we get a handle of it in order to call its other methods
+                // .catch(function (error) {
+                //     console.log(error);
+                // });
+            },
             // We want to clear the FormData object on every upload so we can re-calculate new files again.
             // Keep in mind that we can delete files as well so in the future we will need to keep track of that as well
             resetData() {
@@ -120,7 +144,7 @@
                 this.attachments = [];
             },
             start() {
-                // console.log('Starting File Management Component');
+                console.log('Starting File Management Component');
             },
         },
         created() {
