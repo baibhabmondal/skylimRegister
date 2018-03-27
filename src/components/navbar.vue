@@ -1,13 +1,12 @@
 <template>
     <div id="navbar">
     
-        <v-toolbar dark color="primary">
+        <v-toolbar dark>
         <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn flat>Link One</v-btn>
-            <v-btn flat>Link Two</v-btn>
-            <v-btn flat>Link Three</v-btn>
+            <v-btn icon fab><v-icon>power_settings_new</v-icon></v-btn>
+          
         </v-toolbar-items>
         </v-toolbar>
     
