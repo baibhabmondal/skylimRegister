@@ -284,11 +284,7 @@
     $_veeValidate: {
       validator: 'new'
     },
-     data() {
-        return {
-          parent: "Parent"
-        }
-      },
+   
     computed: {
       form() {
         return this.$store.state.form;
@@ -366,6 +362,7 @@
     },
     data() {
       return {
+        parent: "Parent",
         ffname: "",
         flname: "",
         fcontact: "",
