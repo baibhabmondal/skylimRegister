@@ -18,7 +18,7 @@
       </v-layout>
 
       <!-- details of your 10 board -->
-      <v-layout row>
+      <v-layout row v-if="!hideFields.has('X institution')">
         <v-flex xs4 lg5 pt-4 text-xs-right>
           <b>Name of the institution :</b>
         </v-flex>
@@ -29,7 +29,7 @@
         </v-flex>
       </v-layout>
       <!-- name of the board  -->
-      <v-layout row>
+      <v-layout row v-if="!hideFields.has('X board')">
         <v-flex xs4 lg5 pt-4 text-xs-right>
           <b>Name of the board :</b>
         </v-flex>
@@ -40,7 +40,7 @@
         </v-flex>
       </v-layout>
       <!-- marks scored in 10    -->
-      <v-layout row>
+      <v-layout row v-if="!hideFields.has('X marks')">
         <v-flex xs4 lg5 pt-4 text-xs-right>
           <b>Marks scored :</b>
         </v-flex>
@@ -52,7 +52,7 @@
         </v-flex>
       </v-layout>
       <!-- year of passing 10         -->
-      <v-layout row wrap>
+      <v-layout row wrap v-if="!hideFields.has('X passing year')">
         <v-flex xs4 lg5 pt-4 text-xs-right>
           <b>Year of passing :</b>
         </v-flex>
@@ -74,7 +74,7 @@
         </v-flex>
       </v-layout>
       <!-- details of your 12 board -->
-      <v-layout row>
+      <v-layout row v-if="!hideFields.has('XII institution')">
         <v-flex xs4 lg5 pt-4 text-xs-right>
           <b>Name of the institution :</b>
         </v-flex>
@@ -85,7 +85,7 @@
         </v-flex>
       </v-layout>
       <!-- name of the board -->
-      <v-layout row>
+      <v-layout row v-if="!hideFields.has('XII board')">
         <v-flex xs4 lg5 pt-4 text-xs-right>
           <b>Name of the board :</b>
         </v-flex>
@@ -96,7 +96,7 @@
         </v-flex>
       </v-layout>
       <!-- marks scored in 12    -->
-      <v-layout row>
+      <v-layout row v-if="!hideFields.has('XII marks')">
         <v-flex xs4 lg5 pt-4 text-xs-right>
           <b>Marks scored :</b>
         </v-flex>
@@ -107,7 +107,7 @@
         </v-flex>
       </v-layout>
       <!-- year of passing 12         -->
-      <v-layout row wrap>
+      <v-layout row wrap v-if="!hideFields.has('XII passing year')">
         <v-flex xs4 lg5 pt-4 text-xs-right>
           <b>Year of passing :</b>
         </v-flex>
@@ -139,7 +139,7 @@
 </template>
 <script>
   export default {
-    props: ['content1'],
+    props: ['content1','hideFields'],
     $_veeValidate: {
       validator: 'new'
     },

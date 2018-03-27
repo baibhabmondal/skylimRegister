@@ -28,20 +28,20 @@
                                 <v-btn color="primary" @click.native="e1 = 2">go to registration</v-btn>                        
                             </v-stepper-content>
                             <v-stepper-content step="2" style="width:100%;padding:0px;margin:0px" >
-                                <one :complete="e1" @form1validity="setE" ></one>
+                                <one :hideFields="hideFieldsOne" :complete="e1" @form1validity="setE" ></one>
                             </v-stepper-content>
                             <v-stepper-content step="3" style="margin:0;padding:0;">
-                                <two :complete="e1" @form1validity="setE"></two>
+                                <two :hideFields="hideFieldsOne" :complete="e1" @form1validity="setE"></two>
                                 <v-btn color="primary" @click.native="e1 = 2">Go Back</v-btn>                        
                             </v-stepper-content>
                             <v-stepper-content step="4" style="margin:0;padding:0;">
-                                <three :complete="e1" @to1push="pushing" @form1validity="setE"></three>
-                                <v-btn color="primary"  @click.native="e1 = 3">Go back</v-btn>
+                                <three :hideFields="hideFieldsOne" :complete="e1" @to1push="pushing" @form1validity="setE"></three>
+                                <v-btn dark  @click.native="e1 = 3">Go back</v-btn>
                             </v-stepper-content>
                               <v-stepper-content step="5" style="margin:0;padding:0;">
                                 <four></four>
-                                <v-btn color="primary" @click.native="e1 = 1">Continue</v-btn>
-                                <v-btn flat>Cancel</v-btn>
+                                <v-btn dark @click.native="e1 = 1">Continue</v-btn>
+                                <v-btn dark flat>Cancel</v-btn>
                             </v-stepper-content>
                         </v-stepper-items>
                 
@@ -67,8 +67,11 @@ import {mapActions} from 'vuex';
 export default {
   data () {
     return {
-      e1: 0,
-        combine:[]
+        e1: 0,
+        combine:[],
+        // hideFieldsOne:{'firstname':true,'lastname':true,'pincode':true}
+        hideFieldsOne:new Set(['dob','e-mail','father occupation','X board']),
+       
     }
   },
     computed: {

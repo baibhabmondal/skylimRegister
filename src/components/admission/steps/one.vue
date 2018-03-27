@@ -12,7 +12,7 @@
       <!--name first and last-->
       <div id="container">
 
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('firstname')">
 
           <v-flex pt-4 xs4  pr-4 text-xs-right><b class="adjust">Name:</b></v-flex>
 
@@ -25,7 +25,7 @@
           </v-flex>
 
         </v-layout>
-        <v-layout>
+        <v-layout v-if="!hideFields.has('lastname')">
 
           <v-flex offset-xs4 xs4 lg5>
             <input type="text" placeholder="Last Name" name="lastname" v-validate="'required|alpha'" data-vv-delay="300" v-model="form.lname"
@@ -36,15 +36,15 @@
         </v-layout>
 
         <!--dob-->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('dob')">
           <v-flex pt-4 xs4 pr-4 text-xs-right> <b class="adjust">D.O.B:</b></v-flex>
           <v-flex xs4 lg5>
-            <input type="date" class="textinput" v-model="form.dob">
+            <input type="date" name="dob" class="textinput" v-model="form.dob">
           </v-flex>
         </v-layout>
 
         <!-- gender-->
-        <v-layout row pt-3>
+        <v-layout row pt-3 v-if="!hideFields.has('radio_group_1')">
           <v-flex pt-4 xs4 pr-4 text-xs-right class="name adjust"><b>GENDER:</b></v-flex>
           <v-flex xs8>
             <v-radio-group :mandatory="true" row :error-messages="errors.collect('gender')" data-vv-name="gender" v-model="form.gender">
@@ -60,7 +60,7 @@
           <span v-show="errors.has('male')">{{ errors.any('radio_group_1') }}</span>
         </v-layout>
         <!-- blood groups -->
-        <v-layout row wrap>
+        <v-layout row wrap v-if="!hideFields.has('bloodgroup')">
           <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">BLOOD GROUP:</b></v-flex>
           <v-flex xs4 pt-3 lg5>
             <div class="select-field" label="Select">
@@ -76,7 +76,7 @@
         </v-layout>
 
         <!-- e-mail -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('e-mail')">
           <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">E-MAIL:</b></v-flex>
           <v-flex xs4 lg5>
             <input type="text" placeholder="E-mail" name="e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="form.mail"
@@ -89,7 +89,7 @@
         </v-layout>
 
         <!--permanent address -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('address-1')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">ADDRESS-1:</b>
           </v-flex>
@@ -105,7 +105,7 @@
         </v-layout>
 
         <!-- city and state of permnent address -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('city-1')">
 
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">CITY:</b>
@@ -124,7 +124,7 @@
           </v-flex>
 
         </v-layout>
-        <v-layout>
+        <v-layout v-if="!hideFields.has('state-1')">
 
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">STATE:</b>
@@ -138,16 +138,11 @@
             </div>
             <i v-show="errors.has('state-1')"></i>
             <span v-show="errors.has('state-1')" style="color:red;">{{ errors.first('state-1') }}</span>
-
-
           </v-flex>
-
-
-
         </v-layout>
 
         <!--pincode-->
-        <v-layout>
+        <v-layout v-if="!hideFields.has('pincode')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">PINCODE:</b>
           </v-flex>
@@ -157,13 +152,11 @@
             <i v-show="errors.has('pincode')"></i>
             <span v-show="errors.has('pincode')" style="color:red;">{{ errors.first('pincode') }}</span>
             <!-- <v-text-field  v-model="form.add1pincode" v-validate="'required|digits:6'" label="pincode" required  :error-messages="errors.collect('pin')" data-vv-name="pin" ></v-text-field> -->
-
-
           </v-flex>
         </v-layout>
 
         <!-- temporary address -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('address-2')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust"> ADDRESS-2:</b>
           </v-flex>
@@ -174,8 +167,7 @@
         </v-layout>
 
         <!-- state and address of temporry address -->
-        <v-layout row>
-
+        <v-layout row v-if="!hideFields.has('city-2')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">CITY:</b>
           </v-flex>
@@ -190,8 +182,7 @@
           </v-flex>
 
         </v-layout>
-        <v-layout>
-
+        <v-layout v-if="!hideFields.has('state-2')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">STATE:</b>
           </v-flex>
@@ -209,7 +200,7 @@
         </v-layout>
 
         <!--pincode-->
-        <v-layout>
+        <v-layout v-if="!hideFields.has('pincode-2')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">PINCODE:</b>
           </v-flex>
@@ -219,7 +210,7 @@
         </v-layout>
 
         <!-- contact numbers -->
-        <v-layout>
+        <v-layout v-if="!hideFields.has('contact1')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">CONTACT DETAILS:</b>
           </v-flex>
@@ -230,7 +221,7 @@
             <span v-show="errors.has('contact1')" style="color:red;">{{ errors.first('contact1') }}</span>
           </v-flex>
         </v-layout>
-        <v-layout row wrap>
+        <v-layout row wrap v-if="!hideFields.has('contact2')">
           <v-flex xs4 lg5 offset-xs4>
             <input type="text" placeholder="Contact 2" name="contact2" v-model="form.contact2" :class="{'input': true, }" class="textinput">
           </v-flex>
@@ -241,8 +232,8 @@
 
           </v-flex>
           <v-flex xs4>
-            <v-btn @click="submit" type="submit" color="primary">CONTINUE</v-btn>
-            <v-btn @click="clear" color="primary">clear</v-btn>
+            <v-btn @click="submit" type="submit" dark>CONTINUE</v-btn>
+            <v-btn @click="clear" dark>clear</v-btn>
           </v-flex>
 
 
@@ -261,6 +252,7 @@
     $_veeValidate: {
       validator: "new"
     },
+    props:['hideFields'],
     computed: {
       form() {
         return this.$store.state.form;
