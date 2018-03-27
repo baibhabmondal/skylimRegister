@@ -156,8 +156,8 @@
         this.$validator.validateAll().then((result) => {
           if (result) {
             if (this.errors.any() == false) {
-              this.$emit('to1push', this.form); //FIRST I WANT TO SEND THIS EVENT
-              this.$emit('form1validity', 2); //THEN THIS EVENT AND THEN
+              // this.$emit('to1push', this.form); //FIRST I WANT TO SEND THIS EVENT
+              this.$emit('form1validity', 5); //THEN THIS EVENT AND THEN
 
               // Object.keys(this.form).forEach(key => this.form[key]="");//THIS THING
               //FIRST TWO EVENT SENDING ARE IN SEQUENCE BUT BECAUSE OF THE THIRD THING

@@ -79,12 +79,18 @@
                 
                 if (this.attachments.length > 0) {
                     for (var i = 0; i < this.attachments.length; i++) {
-                        let attachment = this.attachments[i];
-                        this.data.append('attachments[]', attachment);
+                        this.form.attachments.push(this.attachments[i]);
+                        // this.data.append('attachments[]', attachment);
                     }
-                                    console.log(this.attachments)
+                                    // console.log(this.attachments)
 
                 }
+                for(const key of Object.keys(this.form))
+                {
+                     console.log(key, this.form[key])
+                     this.data.append(key, this.form[key]);
+                }
+                Object.keys(this.form).forEach(key => this.form[key] = "")
             },
             removeAttachment(attachment) {
                 
@@ -111,7 +117,8 @@
                 
             //    this.form.attachments[0] = this.attachments[0];
                console.log(this.form)
-                // this.prepareFields();
+                this.prepareFields();
+                this.$emit('to1push', this.form);
                 //  console.log(this.data)
                 // var config = {
                 //     headers: { 'Content-Type': 'multipart/form-data' } ,

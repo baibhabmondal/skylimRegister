@@ -54,6 +54,7 @@ export const store = new Vuex.Store({
         xiimarks:"",
         xiipassyear:"",
         // attachments
+        attachments: []
         
         
     },
@@ -80,11 +81,11 @@ export const store = new Vuex.Store({
       { text: "AB positive" }
     ]
   },
-    // mutations: {
-    //             pushing: (state, payload) => {
-    //               state.allstudents.push(payload);
-    //               console.log(state.allstudents);
-    //               Object.keys(state.form).forEach(key => (state.form[key] = ""));
-    //             }
-    // }
+    mutations: {
+                pushing: (state, payload) => {
+                  state.allstudents.push(payload);
+                  console.log(state.allstudents);
+                  Object.keys(state.form).forEach(key => (state.form[key] = ""));
+                }
+    }
 })

@@ -16,7 +16,7 @@
                             <v-divider></v-divider>
                             <v-stepper-step step="3" :complete="e1 > 3" editable></v-stepper-step>
                             <v-divider></v-divider>
-                            <v-stepper-step step="4" editable></v-stepper-step>
+                            <v-stepper-step step="4" :complete="e1 > 4" editable></v-stepper-step>
                             <v-divider></v-divider>
                             <v-stepper-step step="5" editable></v-stepper-step>
                             <v-divider></v-divider>
@@ -35,11 +35,11 @@
                                 <v-btn color="primary" @click.native="e1 = 2">Go Back</v-btn>                        
                             </v-stepper-content>
                             <v-stepper-content step="4" style="margin:0;padding:0;">
-                                <three :complete="e1" @to1push="pushing" @form1validity="setE"></three>
+                                <three :complete="e1"  @form1validity="setE"></three>
                                 <v-btn color="primary"  @click.native="e1 = 3">Go back</v-btn>
                             </v-stepper-content>
                               <v-stepper-content step="5" style="margin:0;padding:0;">
-                                <four></four>
+                                <four @to1push="pushing" :complete="e1"></four>
                                 <v-btn color="primary" @click.native="e1 = 1">Continue</v-btn>
                                 <v-btn flat>Cancel</v-btn>
                             </v-stepper-content>
