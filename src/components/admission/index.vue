@@ -18,7 +18,9 @@
               <v-divider></v-divider>
               <v-stepper-step step="4" :complete="e1 > 4" editable></v-stepper-step>
               <v-divider></v-divider>
-              <v-stepper-step step="5" editable></v-stepper-step>
+              <v-stepper-step step="5" :complete="e1 > 5" editable></v-stepper-step>
+              <v-divider></v-divider>
+              <v-stepper-step step="6" editable></v-stepper-step>
               <v-divider></v-divider>
             </v-stepper-header>
             <!-- </div> -->
@@ -38,7 +40,13 @@
                 <three :hideFields="hideFieldsOne" :complete="e1" @form1validity="setE"></three>
                 <v-btn color="primary" @click.native="e1 = 3">Go back</v-btn>
               </v-stepper-content>
+              
               <v-stepper-content step="5" style="margin:0;padding:0;">
+                <fifth  :complete="e1"  @form1validity="setE"></fifth>
+                <v-btn color="primary" @click.native="e1 = 4">Go back</v-btn>
+               
+              </v-stepper-content>
+              <v-stepper-content step="6" style="margin:0;padding:0;">
                 <four @to1push="pushing" :complete="e1"></four>
                 <v-btn color="primary" @click.native="e1 = 1">Continue</v-btn>
                 <v-btn flat>Cancel</v-btn>
@@ -61,6 +69,7 @@
   import three from './steps/three.vue'
   import four from './steps/four.vue'
   import intro from './steps/intro.vue'
+  import fifth from './steps/fifth.vue'
   import {
     mapActions
   } from 'vuex';
@@ -96,7 +105,8 @@
       two,
       three,
       four,
-      intro
+      intro,
+      fifth
     }
   }
 
