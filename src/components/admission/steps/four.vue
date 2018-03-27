@@ -79,7 +79,7 @@
                 
                 if (this.attachments.length > 0) {
                     for (var i = 0; i < this.attachments.length; i++) {
-                        this.form.attachments.push(this.attachments[i]);
+                        // this.form.attachments.push(this.attachments[i]);
                         // this.data.append('attachments[]', attachment);
                     }
                                     // console.log(this.attachments)
@@ -90,7 +90,7 @@
                      console.log(key, this.form[key])
                      this.data.append(key, this.form[key]);
                 }
-                Object.keys(this.form).forEach(key => this.form[key] = "")
+                // Object.keys(this.form).forEach(key => this.form[key] = "")
             },
             removeAttachment(attachment) {
                 
@@ -119,7 +119,7 @@
                console.log(this.form)
                 this.prepareFields();
                 this.$emit('to1push', this.form);
-                //  console.log(this.data)
+                 console.log(this.data)
                 // var config = {
                 //     headers: { 'Content-Type': 'multipart/form-data' } ,
                 //     onUploadProgress: function(progressEvent) {

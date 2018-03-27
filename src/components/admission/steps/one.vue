@@ -1,11 +1,11 @@
 <template>
   <div class="main">
-<div class="arrow-steps clearfix" style="margin: 0 0 5% 0; width: 100%;">
-  <div class="step current"> <span> Step 1</span> </div>
-    <div class="step"> <span>Step 2</span> </div>
-    <div class="step"> <span> Step 3</span> </div>
-    <div class="step"> <span>Step 4</span> </div>
-  </div>
+    <div class="arrow-steps clearfix" style="margin: 0 0 5% 0; width: 100%;">
+      <div class="step current"> <span> Step 1</span> </div>
+      <div class="step"> <span>Step 2</span> </div>
+      <div class="step"> <span> Step 3</span> </div>
+      <div class="step"> <span>Step 4</span> </div>
+    </div>
     <form @submit.prevent="submit1">
       <h2 class="page-heading">STUDENT DETAILS</h2>
 
@@ -13,9 +13,9 @@
       <!--name first and last-->
       <div id="container">
 
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('firstname')">
 
-          <v-flex pt-4 xs4  pr-4 text-xs-right><b class="adjust">Name:</b></v-flex>
+          <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">Name:</b></v-flex>
 
           <v-flex xs4 lg5>
             <!-- <v-text-field :error-messages="errors.collect('fname')" data-vv-name="fname" v-validate="'required|alpha'" label="First Name" required v-model="form.fname"></v-text-field> -->
@@ -26,7 +26,7 @@
           </v-flex>
 
         </v-layout>
-        <v-layout>
+        <v-layout v-if="!hideFields.has('lastname')">
 
           <v-flex offset-xs4 xs4 lg5>
             <input type="text" placeholder="Last Name" name="lastname" v-validate="'required|alpha'" data-vv-delay="300" v-model="lname"
@@ -37,7 +37,7 @@
         </v-layout>
 
         <!--dob-->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('dob')">
           <v-flex pt-4 xs4 pr-4 text-xs-right> <b class="adjust">D.O.B:</b></v-flex>
           <v-flex xs4 lg5>
             <input type="date" class="textinput" v-model="dob">
@@ -45,7 +45,7 @@
         </v-layout>
 
         <!-- gender-->
-        <v-layout row pt-3>
+        <v-layout row pt-3 v-if="!hideFields.has('radio_group_1')">
           <v-flex pt-4 xs4 pr-4 text-xs-right class="name adjust"><b>GENDER:</b></v-flex>
           <v-flex xs8>
             <v-radio-group :mandatory="true" row :error-messages="errors.collect('gender')" data-vv-name="gender" v-model="form.gender">
@@ -61,7 +61,7 @@
           <span v-show="errors.has('male')">{{ errors.any('radio_group_1') }}</span>
         </v-layout>
         <!-- blood groups -->
-        <v-layout row wrap>
+        <v-layout row wrap v-if="!hideFields.has('bloodgroup')">
           <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">BLOOD GROUP:</b></v-flex>
           <v-flex xs4 pt-3 lg5>
             <div class="select-field" label="Select">
@@ -77,11 +77,11 @@
         </v-layout>
 
         <!-- e-mail -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('e-mail')">
           <v-flex pt-4 xs4 pr-4 text-xs-right><b class="adjust">E-MAIL:</b></v-flex>
           <v-flex xs4 lg5>
-            <input type="text" placeholder="E-mail" name="e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="mail"
-              :class="{'input': true, }" class="textinput">
+            <input type="text" placeholder="E-mail" name="e-mail" v-validate="'required|email'" data-vv-delay="300" v-model="mail" :class="{'input': true, }"
+              class="textinput">
             <i v-show="errors.has('e-mail')"></i>
             <span v-show="errors.has('e-mail')" style="color:red;">{{ errors.first('e-mail') }}</span>
 
@@ -90,14 +90,14 @@
         </v-layout>
 
         <!--permanent address -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('address-1')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">ADDRESS-1:</b>
           </v-flex>
 
           <v-flex xs4 lg5>
-            <input type="text" placeholder="Address-1" name="address-1" v-validate="'required'" data-vv-delay="300" v-model="add1"
-              :class="{'input': true, }" class="textinput">
+            <input type="text" placeholder="Address-1" name="address-1" v-validate="'required'" data-vv-delay="300" v-model="add1" :class="{'input': true, }"
+              class="textinput">
             <i v-show="errors.has('address-1')"></i>
             <span v-show="errors.has('address-1')" style="color:red;">{{ errors.first('address-1') }}</span>
           </v-flex>
@@ -106,7 +106,7 @@
         </v-layout>
 
         <!-- city and state of permnent address -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('city-1')">
 
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">CITY:</b>
@@ -125,7 +125,7 @@
           </v-flex>
 
         </v-layout>
-        <v-layout>
+        <v-layout v-if="!hideFields.has('state-1')">
 
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">STATE:</b>
@@ -148,7 +148,7 @@
         </v-layout>
 
         <!--pincode-->
-        <v-layout>
+        <v-layout v-if="!hideFields.has('pincode')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">PINCODE:</b>
           </v-flex>
@@ -164,7 +164,7 @@
         </v-layout>
 
         <!-- temporary address -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('address-2')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust"> ADDRESS-2:</b>
           </v-flex>
@@ -175,7 +175,7 @@
         </v-layout>
 
         <!-- state and address of temporry address -->
-        <v-layout row>
+        <v-layout row v-if="!hideFields.has('city-2')">
 
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">CITY:</b>
@@ -191,7 +191,7 @@
           </v-flex>
 
         </v-layout>
-        <v-layout>
+        <v-layout v-if="!hideFields.has('state-2')">
 
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">STATE:</b>
@@ -210,7 +210,7 @@
         </v-layout>
 
         <!--pincode-->
-        <v-layout>
+        <v-layout v-if="!hideFields.has('pincode-2')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">PINCODE:</b>
           </v-flex>
@@ -220,7 +220,7 @@
         </v-layout>
 
         <!-- contact numbers -->
-        <v-layout>
+        <v-layout v-if="!hideFields.has('contact1')">
           <v-flex pt-4 xs4 pr-4 text-xs-right>
             <b class="adjust">CONTACT DETAILS:</b>
           </v-flex>
@@ -231,7 +231,7 @@
             <span v-show="errors.has('contact1')" style="color:red;">{{ errors.first('contact1') }}</span>
           </v-flex>
         </v-layout>
-        <v-layout row wrap>
+        <v-layout row wrap v-if="!hideFields.has('contact2')">
           <v-flex xs4 lg5 offset-xs4>
             <input type="text" placeholder="Contact 2" name="contact2" v-model="contact2" :class="{'input': true, }" class="textinput">
           </v-flex>
@@ -262,6 +262,7 @@
     $_veeValidate: {
       validator: "new"
     },
+    props: ['hideFields'],
     computed: {
       form() {
         return this.$store.state.form;
@@ -310,7 +311,7 @@
     methods: {
       submit() {
 
-        
+
 
         this.$validator.validateAll().then((result) => {
           if (result) {
@@ -320,17 +321,17 @@
             return;
           }
         });
-         this.form.fname = this.fname;
-          this.form.lname = this.lname;
-          this.form.dob = this.dob;
-          this.form.bloodgroup = this.bloodgroup;
-          this.form.mail = this.mail;
-          this.form.add1 = this.add1;
-          this.form.add1city = this.add1city;
-          this.form.add1state = this.add1state;
-          this.form.add2pincode = this.add2pincode;
-          this.form.contact1 = this.contact1;
-          this.form.contact2 = this.contact2;
+        this.form.fname = this.fname;
+        this.form.lname = this.lname;
+        this.form.dob = this.dob;
+        this.form.bloodgroup = this.bloodgroup;
+        this.form.mail = this.mail;
+        this.form.add1 = this.add1;
+        this.form.add1city = this.add1city;
+        this.form.add1state = this.add1state;
+        this.form.add2pincode = this.add2pincode;
+        this.form.contact1 = this.contact1;
+        this.form.contact2 = this.contact2;
       },
       submit1() {
         this.$validator.validateAll();
@@ -446,140 +447,143 @@
 
   }
 
-.clearfix:after {
+  .clearfix:after {
     clear: both;
     content: "";
     display: block;
     height: 0;
-}
+  }
 
 
-.arrow-steps .step {
-	font-size: 14px;
-	text-align: center;
-	color: #666;
-	cursor: default;
-	margin: 0 3px;
-	padding: 10px 10px 10px 30px;
-	min-width: 24.3%;
-	float: left;
-	position: relative;
-	background-color: #d9e3f7;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none; 
-  transition: background-color 0.2s ease;
-}
-
-
- @media screen and (max-width: 800px) {
-  
   .arrow-steps .step {
-	font-size: 14px;
-	text-align: center;
-	color: #666;
-	cursor: default;
-	margin: 0 3px;
-	padding: 10px 10px 10px 30px;
-	min-width: 24.1%;
-	float: left;
-	position: relative;
-	background-color: #d9e3f7;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none; 
-  transition: background-color 0.2s ease;
-}
-
-}
-
-@media screen and (max-width: 480px) {
-  
-  .arrow-steps .step {
-	font-size: 14px;
-	text-align: center;
-	color: #666;
-	cursor: default;
-	margin: 0 3px;
-	padding: 10px 10px 10px 30px;
-	min-width: 23.3%;
-	float: left;
-	position: relative;
-	background-color: #d9e3f7;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none; 
-  transition: background-color 0.2s ease;
-}
-
-}
+    font-size: 14px;
+    text-align: center;
+    color: #666;
+    cursor: default;
+    margin: 0 3px;
+    padding: 10px 10px 10px 30px;
+    min-width: 24.3%;
+    float: left;
+    position: relative;
+    background-color: #d9e3f7;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: background-color 0.2s ease;
+  }
 
 
-.arrow-steps .step:after,
-.arrow-steps .step:before {
-	content: " ";
-	position: absolute;
-	top: 0;
-	right: -17px;
-	width: 0;
-	height: 0;
-	border-top: 19px solid transparent;
-	border-bottom: 17px solid transparent;
-	border-left: 17px solid #d9e3f7;	
-	z-index: 2;
-  transition: border-color 0.2s ease;
-} 
+  @media screen and (max-width: 800px) {
 
-.arrow-steps .step:before {
-	right: auto;
-	left: 0;
-	border-left: 17px solid #fff;	
-	z-index: 0;
-}
+    .arrow-steps .step {
+      font-size: 14px;
+      text-align: center;
+      color: #666;
+      cursor: default;
+      margin: 0 3px;
+      padding: 10px 10px 10px 30px;
+      min-width: 24.1%;
+      float: left;
+      position: relative;
+      background-color: #d9e3f7;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: background-color 0.2s ease;
+    }
 
-.arrow-steps .step:first-child:before {
-	border: none;
-}
+  }
 
-.arrow-steps .step:first-child {
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
-}
-.arrow-steps .step:last-child:after {
-	/* border-right: 1px solid black; */
-  display: none;
-}
-.arrow-steps .step span {
-	position: relative;
-}
+  @media screen and (max-width: 480px) {
 
-.arrow-steps .step span:before {
-	opacity: 0;
-	content: "✔";
-	position: absolute;
-	top: -2px;
-	left: -20px;
-}
+    .arrow-steps .step {
+      font-size: 14px;
+      text-align: center;
+      color: #666;
+      cursor: default;
+      margin: 0 3px;
+      padding: 10px 10px 10px 30px;
+      min-width: 23.3%;
+      float: left;
+      position: relative;
+      background-color: #d9e3f7;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: background-color 0.2s ease;
+    }
 
-.arrow-steps .step.done span:before {
-	opacity: 1;
-	-webkit-transition: opacity 0.3s ease 0.5s;
-	-moz-transition: opacity 0.3s ease 0.5s;
-	-ms-transition: opacity 0.3s ease 0.5s;
-	transition: opacity 0.3s ease 0.5s;
-}
+  }
 
-.arrow-steps .step.current {
-	color: #fff;
-	background-color: #455553;
-}
 
-.arrow-steps .step.current:after {
-	border-left: 17px solid #455553;	
-}
+  .arrow-steps .step:after,
+  .arrow-steps .step:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: -17px;
+    width: 0;
+    height: 0;
+    border-top: 19px solid transparent;
+    border-bottom: 17px solid transparent;
+    border-left: 17px solid #d9e3f7;
+    z-index: 2;
+    transition: border-color 0.2s ease;
+  }
+
+  .arrow-steps .step:before {
+    right: auto;
+    left: 0;
+    border-left: 17px solid #fff;
+    z-index: 0;
+  }
+
+  .arrow-steps .step:first-child:before {
+    border: none;
+  }
+
+  .arrow-steps .step:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  .arrow-steps .step:last-child:after {
+    /* border-right: 1px solid black; */
+    display: none;
+  }
+
+  .arrow-steps .step span {
+    position: relative;
+  }
+
+  .arrow-steps .step span:before {
+    opacity: 0;
+    content: "✔";
+    position: absolute;
+    top: -2px;
+    left: -20px;
+  }
+
+  .arrow-steps .step.done span:before {
+    opacity: 1;
+    -webkit-transition: opacity 0.3s ease 0.5s;
+    -moz-transition: opacity 0.3s ease 0.5s;
+    -ms-transition: opacity 0.3s ease 0.5s;
+    transition: opacity 0.3s ease 0.5s;
+  }
+
+  .arrow-steps .step.current {
+    color: #fff;
+    background-color: #455553;
+  }
+
+  .arrow-steps .step.current:after {
+    border-left: 17px solid #455553;
+  }
+
   input {
     border-radius: 4px;
   }
@@ -607,7 +611,5 @@
   .select-field>select>option {
     padding: 10px;
   }
-
-  
 
 </style>
