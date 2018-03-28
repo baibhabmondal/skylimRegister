@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "pdfmake": "^0.1.36",
     "simple-vue-validator": "^0.15.0",
     "vee-validate": "^2.0.6",
     "vue": "^2.5.2",

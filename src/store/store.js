@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
       //own info
         fname: "",
         lname: "",
-        dob: null,
+        dob:null,
         gender: "",
         bloodgroup: "",
         mail: "",

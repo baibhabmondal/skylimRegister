@@ -80,7 +80,7 @@
         e1: 0,
         combine: [],
         // hideFieldsOne:{'firstname':true,'lastname':true,'pincode':true}
-        hideFieldsOne: new Set(['dob', 'e-mail', 'father occupation', 'X board']),
+        hideFieldsOne: new Set(['e-mail', 'father occupation', 'X board']),
       }
     },
     computed: {

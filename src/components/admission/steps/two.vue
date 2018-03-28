@@ -15,7 +15,7 @@
         <input type="radio" name="parent" value="Guardian" v-model="parent"  />
         <span>Guardian</span>
       </label>
-      <div v-show="!checkParent">
+      <div v-if="!checkParent">
         <h2 class="page-heading">FATHERS INFO</h2>
         <div id="container">
           <!-- first and last name of father -->
@@ -195,7 +195,7 @@
           
           <!-- gardian info starts -->
       
-        <!-- <div v-show="!checkParent"> -->
+        <div v-if="checkParent">
           <h2 class="page-heading">GUARDIANS INFO</h2>
 
           <!-- first and last name of gardian -->
@@ -263,6 +263,7 @@
 
           </v-layout>
           </div>
+          </div>
           <!-- buttons -->
           <v-layout row wrap pt-3 pb-3>
             <v-flex xs4>
@@ -313,7 +314,7 @@
           }
         });
         this.form.ffname = this.ffname;
-        this.form.lfname = this.lfname;
+        this.form.flname = this.flname;
         this.form.fcontact = this.fcontact;
         this.form.ffmail = this.fmail;
         this.form.ffoccupation = this.foccupation;

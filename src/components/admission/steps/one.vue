@@ -204,9 +204,6 @@
                                     </select>
             </div>
           </v-flex>
-
-
-
         </v-layout>
 
         <!--pincode-->
