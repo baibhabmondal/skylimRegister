@@ -67,8 +67,8 @@
                 </v-flex>
                 <!-- <p>{{ this.hostel }}</p> -->
             </v-layout>
-           <!-- <div v-show="hostel"> -->
-                <v-layout row v-for="(fee,i) in fees" :key="i" v-show="fee.need, hostel" v-if="fee.feeTitle != 'TRANSPORT FEES'">
+           <div v-show="hostel">
+                <v-layout row v-for="(fee,i) in fees" :key="i" v-show="fee.need" v-if="fee.feeTitle != 'TRANSPORT FEES'">
                     <v-flex xs4 lg5 pt-4 text-xs-right>
                         <b> {{ fee.feeTitle }} : </b>
                     </v-flex>
@@ -77,9 +77,9 @@
                         <h3 class="mr-1 mt-1">Rs. {{ fee.amount }} </h3>
                     </v-flex>
                 </v-layout>
-             <!-- </div> -->
-          
-                <v-layout row v-for="(fee,i) in fees" :key="i" v-show="fee.need, !hostel" v-if="fee.feeTitle == 'TRANSPORT FEES'">
+             </div>
+             <div v-show="!hostel">
+                <v-layout row v-for="(fee,i) in fees" :key="i" v-show="fee.need" v-if="fee.feeTitle == 'TRANSPORT FEES'">
                     <v-flex xs4 lg5 pt-4 text-xs-right>
                         <b> {{ fee.feeTitle }} : </b>
                         <!-- <span> transport</span> -->
@@ -89,6 +89,7 @@
                         <h3 class="mr-1 mt-1">Rs. {{ fee.amount }} </h3>
                     </v-flex>
                 </v-layout>
+                </div>
          
 
           
@@ -197,7 +198,7 @@
                     },
                     {
                         feeTitle: "LAUNDRY FEES",
-                        need: true,
+                        need: false,
                         amount: "200000"
                     },
                     {
