@@ -7,56 +7,63 @@ export const store = new Vuex.Store({
   state: {
     form: {
       //own info
-        fname: "",
-        lname: "",
-        dob: null,
-        gender: "",
-        bloodgroup: "",
-        mail: "",
-        add1: "",
-        add1city: "",
-        add1state: "",
-        add1pincode: "",
-        add2: "",
-        add2city: "",
-        add2state: "",
-        add2pincode: "",
-        contact1: "",
-        contact2: "",
+      fname: "",
+      lname: "",
+      dob: null,
+      gender: "",
+      bloodgroup: "",
+      mail: "",
+      add1: "",
+      add1city: "",
+      add1state: "",
+      add1pincode: "",
+      add2: "",
+      add2city: "",
+      add2state: "",
+      add2pincode: "",
+      contact1: "",
+      contact2: "",
       //father info
-        ffname: "",
-        flname: "",
-        fcontact: "",
-        fmail: "",
-        foccupation: "",
-        fincome: "",
+      ffname: "",
+      flname: "",
+      fcontact: "",
+      fmail: "",
+      foccupation: "",
+      fincome: "",
       //mother info  
-        mfname: "",
-        mlname: "",
-        mcontact: "",
-        mmail: "",
-        moccupation: "",
-        mincome: "",
+      mfname: "",
+      mlname: "",
+      mcontact: "",
+      mmail: "",
+      moccupation: "",
+      mincome: "",
       //gardian info
-        gfname: "",
-        glname: "",
-        gcontact: "",
-        gmail: "",
-        goccupation: "",
-        gincome: "",
+      gfname: "",
+      glname: "",
+      gcontact: "",
+      gmail: "",
+      goccupation: "",
+      gincome: "",
       // marks
-        xinstitute:"",
-        xboard:"",
-        xmarks:"",
-        xpassyear:"",
-        xiiinstitute:"",
-        xiiboard:"",
-        xiimarks:"",
-        xiipassyear:"",
-        // attachments
-        attachments: []
-        
-        
+      xinstitute: "",
+      xboard: "",
+      xmarks: "",
+      xpassyear: "",
+      xiiinstitute: "",
+      xiiboard: "",
+      xiimarks: "",
+      xiipassyear: "",
+      //feeDetails
+      programme: "",
+      discipline: "",
+      feeType: "",
+      hostel: "",
+      transport: "",
+      feePaid: "",
+      // attachments
+      attachments: []
+
+
     },
 
     items: [
@@ -69,7 +76,7 @@ export const store = new Vuex.Store({
       { text: "AB negative" },
       { text: "AB positive" }
     ],
-    allstudents:[],
+    allstudents: [],
     indianstates: [
       { text: "O positive" },
       { text: "O negative" },
@@ -79,13 +86,43 @@ export const store = new Vuex.Store({
       { text: "B positive" },
       { text: "AB negative" },
       { text: "AB positive" }
-    ]
+    ],
+    feeTypes: [
+      {
+        text: "FREE SEAT"
+      },
+      {
+        text: "REGULAR SEAT"
+      }
+
+    ],
+    feePaids: [
+      {
+        text: "Full Payment"
+      },
+      {
+        text: "Installment 1"
+      },
+      {
+        text: "Installment 2"
+      }
+
+    ],
+    fees: 
+      {
+        hostelFees: "500000",
+        messFees: "30000",
+        laundryFees: "20000",
+        transportFees: "30000"
+      }
+
+
   },
-    mutations: {
-                pushing: (state, payload) => {
-                  state.allstudents.push(payload);
-                  console.log(state.allstudents);
-                  // Object.keys(state.form).forEach(key => (state.form[key] = ""));
-                }
+  mutations: {
+    pushing: (state, payload) => {
+      state.allstudents.push(payload);
+      console.log(state.allstudents);
+      // Object.keys(state.form).forEach(key => (state.form[key] = ""));
     }
+  }
 })
