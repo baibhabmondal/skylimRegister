@@ -7,22 +7,89 @@
       <div class="step current"> <span>Step 4</span> </div>
     </div>
     <div style="border:1px solid black">
-      <label>Attachments</label>
-      <br><br>
-      <div>
-        <v-btn raised style="background:#666; color: white; " @click="onPickFile">UPLOAD</v-btn>
-        <input type="file" id="attachments" ref="fileInput" style="display: none;" @change="uploadFieldChange">
-        <hr>
-        <div>
-          <div v-for="(attachment, index) in attachments">
-            <span>{{ (index+1)+':-'+attachment.name + ' (' + Number((attachment.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-            <span @click="removeAttachment(attachment)"><button>Remove</button></span>
-          </div>
-          <v-btn @click="submit">SUBMIT</v-btn>
-          <v-btn @click="downloadpdf">Preview</v-btn>
-        </div>
-      </div>
-      <br><br>
+      <h2 class="page-heading">ATTACHMENTS</h2>
+      <v-container>
+        <v-layout row>
+          <v-flex xs4 lg5 pt-4 text-xs-right>
+            <b>PHOTO : </b>
+          </v-flex>
+          <v-flex xs4 lg4>
+            <v-btn raised style="background:#666; color: white; " @click="onPickFile('photo')">UPLOAD</v-btn>
+            <input type="file" id="attachments" ref="photo" style="display: none;" @change="uploadFieldChange($event,'photo')">
+          </v-flex>
+          <v-flex xs4 lg4>
+            <div v-if="pf">  
+              <span>{{ photo.name + ' (' + Number((photo.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
+              <span @click="removeAttachment()"><button>Remove</button></span>
+            </div>
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs4 lg5 pt-4 text-xs-right>
+            <b>X MARKSHEET : </b>
+          </v-flex>
+          <v-flex xs4 lg4>
+            <v-btn raised style="background:#666; color: white; " @click="onPickFile('xmarksFile')">UPLOAD</v-btn>
+            <input type="file" id="attachments" ref="xmarksFile" style="display: none;" @change="uploadFieldChange($event,'xmarksFile')">
+          </v-flex>
+          <v-flex xs4 lg4>
+            <div v-if="xmf">
+              <span>{{ xmarksFile.name + ' (' + Number((xmarksFile.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
+              <span @click="removeAttachment()"><button>Remove</button></span>
+            </div>
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs4 lg5 pt-4 text-xs-right>
+            <b>XII MARKSHEET : </b>
+          </v-flex>
+          <v-flex xs4 lg4>
+            <v-btn raised style="background:#666; color: white; " @click="onPickFile('xiimarksFile')">UPLOAD</v-btn>
+            <input type="file" id="attachments" ref="xiimarksFile" style="display: none;" @change="uploadFieldChange($event,'xiimarksFile')">
+          </v-flex>
+          <v-flex xs4 lg4>
+            <div v-if="xiimf">
+              <span>{{ xiimarksFile.name + ' (' + Number((xiimarksFile.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
+              <span @click="removeAttachment()"><button>Remove</button></span>
+            </div>
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs4 lg5 pt-4 text-xs-right>
+            <b>ADHAR CARD PHOTO : </b>
+          </v-flex>
+          <v-flex xs4 lg4>
+            <v-btn raised style="background:#666; color: white; " @click="onPickFile('adharPhoto')">UPLOAD</v-btn>
+            <input type="file" id="attachments" ref="adharPhoto" style="display: none;" @change="uploadFieldChange($event,'adharPhoto')">
+          </v-flex>
+          <v-flex xs4 lg4>
+            <div v-if="adharF">
+              <span>{{ adharPhoto.name + ' (' + Number((adharPhoto.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
+              <span @click="removeAttachment()"><button>Remove</button></span>
+            </div>
+          </v-flex>
+        </v-layout>
+        <v-layout row>
+          <v-flex xs4 lg5 pt-4 text-xs-right>
+            <b>ADHAR CARD NUMBER: </b>
+          </v-flex>
+          <v-flex xs4 lg4>
+            <input v-model="adharNO" type="text" placeholder="ADHAR CARD NUMBER" name="adharNO" v-validate="'required|digits:12'" data-vv-delay="300"
+              :class="{'input': true, }" class="textinput">
+            <span v-show="errors.has('adharNO')" style="color:red;">{{ errors.first('adharNO') }}</span>
+          </v-flex>
+          <v-flex xs4 lg4>
+
+          </v-flex>
+          
+        </v-layout>
+      </v-container>
+
+      <v-btn @click="submit">SUBMIT</v-btn>
+      <v-btn @click="downloadpdf">Preview</v-btn>
+
+
+
       <!-- <v-btn style="background:#455553; color: white;" raised @click="onPickFile">UPLOAD</v-btn>
             <input type="file" style="display: none;" ref="fileInput" accept="image/*" @change="onFilePicked">
             <img :src="imageURL" height="150"> -->
@@ -36,210 +103,26 @@
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
   export default {
+     $_veeValidate: {
+          validator: 'new'
+        },
     props: [
       'settings'
     ],
     data() {
       return {
+        pf: 0,
+       
         // You can store all your files here
-        imageURL: "",
-        image: null,
+        photo: null,
+        xmarksFile: null,
+        xiimarksFile: null,
+        adharPhoto: null,
         attachments: [],
-        dd: {
-          pageSize: 'A4',
-          pageMargins: [40, 60, 40, 60],
-          content: [{
-              text: 'SRM UNIVERSITY',
-              alignment: 'center',
-              style: 'header',
-            },
-            	{
-              alignment: 'justify',
-              columns: [
-                
-                    {
-                      width: 150,
-                        text: [
-                          { text: 'Name : ', fontSize: 12  , bold: true, margin: [0, 0, 10, 0] },
-                        ],
-                        
-                        style: 'subheader'
-                      },
-                
-                 {
-                    width: 200,
-                      text: [
-                        { text: this.$store.state.form.fname, fontSize: 12   },
-                        {text:'   '},
-                        { text: this.$store.state.form.lname, fontSize: 12   },
-                      ],
-                      style: 'subheader'
-                    },
-              ]
-            },
-            	{
-                  alignment: 'justify',
-                  columns: [
-
-                    {
-                      width: 150,
-                      text: [
-                        { text: 'GENDER : ', fontSize: 12  , bold: true, margin: [0, 0, 10, 0] },
-                      ],
-
-                      style: 'subheader'
-                    },
-
-                    {
-                      width: 150,
-                      text: [
-                        { text: this.$store.state.form.gender, fontSize: 12   },
-                      ],
-                      style: 'subheader'
-                    },
-                  ]
-                },
-                	{
-                      alignment: 'justify',
-                      columns: [
-
-                        {
-                          width: 150,
-                          text: [
-                            { text: 'Address : ', fontSize: 12  , bold: true, margin: [0, 0, 10, 0] },
-                          ],
-
-                          style: 'subheader'
-                        },
-
-                        {
-                          width: 150,
-                          text: [
-                            { text: this.$store.state.form.add1city, fontSize: 12   },
-                          ],
-                          style: 'subheader'
-                        },
-                      ]
-                    },
-                    	{
-                          alignment: 'justify',
-                          columns: [
-
-                            {
-                              width: 150,
-                              text: [
-                                { text: 'Father Name : ', fontSize: 12  , bold: true, margin: [0, 0, 10, 0] },
-                              ],
-
-                              style: 'subheader'
-                            },
-
-                            {
-                              width: 150,
-                              text: [
-                               { text: this.$store.state.form.ffname, fontSize: 12   },
-                                { text: this.$store.state.form.flname, fontSize: 12   }
-                              ],
-                              style: 'subheader'
-                            },
-                          ]
-                        },
-                        {
-                            alignment: 'justify',
-                            columns: [
-
-                              {
-                                width: 150,
-                                text: [
-                                  { text: 'Mother Name : ', fontSize: 12  , bold: true, margin: [0, 0, 10, 0] },
-                                ],
-
-                                style: 'subheader'
-                              },
-
-                              {
-                                width: 150,
-                                text: [
-                                  { text: this.$store.state.form.mfname, fontSize: 12   },
-                                  { text: this.$store.state.form.mlname, fontSize: 12   }
-                                ],
-                                style: 'subheader'
-                              },
-                            ]
-                          },
-                        {
-                          alignment: 'justify',
-                          columns: [
-
-                            {
-                              width: 150,
-                              text: [
-                                { text: 'X board percentage : ', fontSize: 12  , bold: true, margin: [0, 0, 10, 0] },
-                              ],
-
-                              style: 'subheader'
-                            },
-
-                            {
-                              width: 150,
-                              text: [
-                                { text: this.$store.state.form.xmarks, fontSize: 12   }
-                              ],
-                              style: 'subheader'
-                            },
-                          ]
-                        },
-                        {
-                            alignment: 'justify',
-                            columns: [
-
-                              {
-                                width: 150,
-                                text: [
-                                  { text: 'XII board percentage : ', fontSize: 12  , bold: true, margin: [0, 0, 10, 0] },
-                                ],
-
-                                style: 'subheader'
-                              },
-
-                              {
-                                width: 150,
-                                text: [
-                                  { text: this.$store.state.form.xiimarks, fontSize: 12   }
-                                ],
-                                style: 'subheader'
-                              },
-                            ]
-                          },
-                      
-                  
-          
-            // {
-            //     image: this.$store.state.attachments,
-            //     width: 150
-            //   },
-
-          ],
-          styles: {
-            header: {
-              fontSize: 12  ,
-              alignment: 'justify',
-              margin: [0,0, 0, 30],
-            },
-            subheader: {
-              fontSize: 12,
-              alignment:'left',
-              margin:[0,0,0,5]
-            },
-             sub1header: {
-                fontSize: 12,
-                alignment: 'right',
-                margin: [0, 5, 0, 0]
-              }
-          }
-        },
-
-
+        xmf: 0,
+        xiimf: 0,
+        adharF: 0,
+        adharNO: "",
         // Each file will need to be sent as FormData element
         data: new FormData(),
         // errors: {
@@ -254,22 +137,36 @@
       }
     },
     methods: {
-      onPickFile() {
-
-        this.$refs.fileInput.click()
-
+      onPickFile(arg) {
+        //  console.log(arg + "called")
+        if (arg == 'photo') {
+          console.log("inside")
+          this.$refs.photo.click()
+        }
+        else if (arg == 'xmarksFile') {
+          console.log("inside")
+          this.$refs.xmarksFile.click()
+        }
+        else if (arg == 'xiimarksFile') {
+          console.log("inside")
+          this.$refs.xiimarksFile.click()
+        }
+        else if(arg == 'adharPhoto'){
+          console.log("inside")
+          this.$refs.adharPhoto.click()
+        }
       },
-      getAttachmentSize() {
+      // getAttachmentSize() {
 
-        this.upload_size = 0; // Reset to beginningƒ
-        this.attachments.map((item) => {
-          this.upload_size += parseInt(item.size);
-        });
+      //   this.upload_size = 0; // Reset to beginningƒ
+      //   this.attachments.map((item) => {
+      //     this.upload_size += parseInt(item.size);
+      //   });
 
-        this.upload_size = Number((this.upload_size).toFixed(1));
-        this.$forceUpdate();
-        console.log(this.attachments)
-      },
+      //   this.upload_size = Number((this.upload_size).toFixed(1));
+      //   this.$forceUpdate();
+      //   console.log(this.attachments)
+      // },
       prepareFields() {
 
         if (this.attachments.length > 0) {
@@ -286,26 +183,50 @@
         }
         // Object.keys(this.form).forEach(key => this.form[key] = "")
       },
-      removeAttachment(attachment) {
+      removeAttachment() {
 
-        this.attachments.splice(this.attachments.indexOf(attachment), 1);
-
-        this.getAttachmentSize();
-        console.log(this.attachments)
+        this.photo = null;
+        this.pf = 0;
+        // console.log(this.attachments)
 
       },
       // This function will be called every time you add a file
-      uploadFieldChange(e) {
+      uploadFieldChange(e, arg) {
+        console.log(e.target.files)
+        // if (e.target.files[0].size < 400000) {
+          switch (arg) {
+            case "photo": this.photo = e.target.files[0];
+                          this.pf = 1;
+              console.log(this.photo)
+              break;
+            case "xmarksFile": this.xmarksFile = e.target.files[0];
+             console.log(this.xmarksFile)
+                          this.xmf = 1;
+              break;
+            case "xiimarksFile": this.xiimarksFile = e.target.files[0];
+               this.xiimf = 1;
+              break;
+
+            case "adharPhoto": this.adharPhoto = e.target.files[0];
+             
+               this.adharF =1;
+              break;
+            default: return;
+          }
+        // }
+        console.log(this.photo)
+
+
         var files = e.target.files || e.dataTransfer.files;
-        if (!files.length)
-          return;
-        for (var i = files.length - 1; i >= 0; i--) {
-          this.attachments.push(files[i]);
-        }
+        // if (!files.length)
+        // return;
+        // for (var i = files.length - 1; i >= 0; i--) {
+          this.attachments.push(files[0]);
+        // }
         console.log(this.attachments)
 
         // Reset the form to avoid copying these files multiple times into this.attachments
-        document.getElementById("attachments").value = [];
+        // document.getElementById("attachments").value = [];
       },
       submit() {
 
@@ -364,6 +285,40 @@
     transition: background-color 0.2s ease;
   }
 
+  .page-heading {
+
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 520;
+    color: white;
+    font-size: 20px;
+    margin-left: 10%;
+    width: 70%;
+    display: block;
+    background-color: #455553;
+    margin-left: 15%;
+    padding: 0.2% 0;
+    box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.75);
+    letter-spacing: 0.05em;
+    margin-top: 2%;
+  }
+
+
+    .textinput {
+        border-style: solid;
+        border-color: #F3EFE7;
+        background-color: #F3EFEF;
+        border-width: 0.1px;
+        width: 100%;
+        padding: 5px 5px 5px 10px;
+        vertical-align: middle;
+        align-self: auto;
+        margin-top: 18px;
+        display: table-cell;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) inset, 0 1px rgba(255, 255, 255, 0.06);
+
+        margin-left: 10%;
+        /* box-shadow: 0.1px 0.1px 0.1px 0.1px black ; */
+    }
 
   @media screen and (max-width: 800px) {
 
@@ -469,8 +424,8 @@
     background-color: #455553;
   }
 
+
   .arrow-steps .step.current:after {
     border-left: 17px solid #455553;
   }
-
 </style>
