@@ -124,6 +124,7 @@
         xiimarksFile: null,
         adharPhoto: null,
         adharNO: "",
+        photoURL: "",
         // Each file will need to be sent as FormData element
         data: new FormData(),
         // errors: {
@@ -137,6 +138,12 @@
               alignment: 'center',
               style: 'header',
             },
+             {
+               text: "AAAAAAAA"
+     
+              // text: this.photoURL,
+                  // width: 150
+                },
 
             {
               text: 'Personal Details :',
@@ -595,6 +602,7 @@
               fontSize: 12,
               margin: [10, 20, 0, 20]
             },
+            // 
 
             {
               alignment: 'justify',
@@ -815,10 +823,7 @@
               }
             }
 
-              // {
-              //     image: this.$store.state.attachments,
-              //     width: 150
-              //   },
+             
 
             ],
             styles: {
@@ -849,7 +854,7 @@
     },
     methods: {
       onPickFile(arg) {
-        //  console.log(arg + "called")
+         console.log(arg + "called")
         if (arg == 'photo') {
           console.log("inside")
           this.$refs.photo.click()
@@ -897,16 +902,22 @@
       removeAttachment(e, arg) {
        switch(arg){
          
-        case "photo": this.photo = null;
+        case "photo":
+         this.photo = null;
+         this.$refs.photo.value = null;
+        console.log(this.photo)
         this.pf = 0;
         break;
         case "xmarksFile": this.xmarksFile = null;
+        this.$refs.xmarksFile.value = null;
         this.xmf = 0;
         break;
         case "xiimarksFile": this.xiimarksFile = null;
+        this.$refs.xiimarksFile.value = null;
         this.xiimf = 0;
         break;
         case "adharPhoto": this.adharPhoto = null;
+        this.$refs.adharPhoto.value = null;
         this.adharF = 0;
         break;
         default: return;
@@ -921,16 +932,23 @@
       // This function will be called every time you add a file
       uploadFieldChange(e, arg) {
         
-        // console.log(e.target.files)
+        console.log("abac")
         // if (e.target.files[0].size < 400000) {
         switch (arg) {
           case "photo": this.photo = e.target.files[0];
+          console.log(e)
+          console.log(this.photo)
+           const reader = new FileReader()
+           reader.addEventListener('load', () => { this.photoURL = reader.result;
+             this.photoURL = reader.readAsDataURL(this.photoURL) 
+             console.log("HELEELLELELLLELLELEEL")   
+          } )
               //  var eventPhoto = e;
             this.pf = 1;
-            console.log(this.photo)
+            // console.log(this.photo)
             break;
           case "xmarksFile": this.xmarksFile = e.target.files[0];
-            console.log(this.xmarksFile)
+            // console.log(this.xmarksFile)
             this.xmf = 1;
             break;
           case "xiimarksFile": this.xiimarksFile = e.target.files[0];
@@ -944,16 +962,16 @@
           default: return;
         }
         // }
-        console.log(this.photo)
+        // console.log(this.photo)
 
 
-        var files = e.target.files || e.dataTransfer.files;
+        // var files = e.target.files || e.dataTransfer.files;
         // if (!files.length)
         // return;
         // for (var i = files.length - 1; i >= 0; i--) {
-        this.attachments.push(files[0]);
+        // this.attachments.push(files[0]);
         // }
-        console.log(this.attachments)
+        // console.log(this.attachments)
 
         // Reset the form to avoid copying these files multiple times into this.attachments
         // document.getElementById("attachments").value = [];
