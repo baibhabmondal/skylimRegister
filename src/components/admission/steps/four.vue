@@ -21,7 +21,7 @@
           <v-flex xs4 lg4>
             <div v-if="pf">
               <span>{{ photo.name + ' (' + Number((photo.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'photo')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -36,7 +36,7 @@
           <v-flex xs4 lg4>
             <div v-if="xmf">
               <span>{{ xmarksFile.name + ' (' + Number((xmarksFile.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'xmarksFile')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -51,7 +51,7 @@
           <v-flex xs4 lg4>
             <div v-if="xiimf">
               <span>{{ xiimarksFile.name + ' (' + Number((xiimarksFile.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'xiimarksFile')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -66,7 +66,7 @@
           <v-flex xs4 lg4>
             <div v-if="adharF">
               <span>{{ adharPhoto.name + ' (' + Number((adharPhoto.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'adharPhoto')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -894,19 +894,38 @@
         }
         // Object.keys(this.form).forEach(key => this.form[key] = "")
       },
-      removeAttachment() {
-
-        this.photo = null;
+      removeAttachment(e, arg) {
+       switch(arg){
+         
+        case "photo": this.photo = null;
         this.pf = 0;
+        break;
+        case "xmarksFile": this.xmarksFile = null;
+        this.xmf = 0;
+        break;
+        case "xiimarksFile": this.xiimarksFile = null;
+        this.xiimf = 0;
+        break;
+        case "adharPhoto": this.adharPhoto = null;
+        this.adharF = 0;
+        break;
+        default: return;
+
+       }
+            // this.photo = null;
+        // event.target.files[0] = null;
+        
         // console.log(this.attachments)
 
       },
       // This function will be called every time you add a file
       uploadFieldChange(e, arg) {
-        console.log(e.target.files)
+        
+        // console.log(e.target.files)
         // if (e.target.files[0].size < 400000) {
         switch (arg) {
           case "photo": this.photo = e.target.files[0];
+              //  var eventPhoto = e;
             this.pf = 1;
             console.log(this.photo)
             break;
