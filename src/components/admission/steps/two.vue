@@ -5,6 +5,7 @@
       <div class="step  current"> <span>Step 2</span> </div>
       <div class="step"> <span> Step 3</span> </div>
       <div class="step"> <span>Step 4</span> </div>
+      <div class="step"> <span>Step 5 </span> </div>
     </div>
     <form @submit.prevent="submit1">
       <label>
@@ -511,7 +512,7 @@
     cursor: default;
     margin: 0 3px;
     padding: 10px 10px 10px 30px;
-    min-width: 24.3%;
+    min-width: 19.3%;
     float: left;
     position: relative;
     background-color: #d9e3f7;
@@ -532,7 +533,7 @@
       cursor: default;
       margin: 0 3px;
       padding: 10px 10px 10px 30px;
-      min-width: 24.1%;
+      min-width: 18.8%;
       float: left;
       position: relative;
       background-color: #d9e3f7;
@@ -553,8 +554,8 @@
       color: #666;
       cursor: default;
       margin: 0 3px;
-      padding: 10px 10px 10px 30px;
-      min-width: 23.3%;
+      padding: 5px 5px 5px 15px;
+      min-width: 18.3%;
       float: left;
       position: relative;
       background-color: #d9e3f7;
