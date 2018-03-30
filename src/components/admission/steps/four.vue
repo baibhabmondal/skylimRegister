@@ -1,12 +1,13 @@
 <template>
   <div>
-    <div class="arrow-steps clearfix" style="margin: 0 0 5% 0; width: 150%;">
-      <div class="step"> <span> Step 1</span> </div>
+    <div class="arrow-steps clearfix" style="margin: 0 0 5% 0; width: 100%;">
+      <div class="step "> <span> Step 1</span> </div>
       <div class="step"> <span>Step 2</span> </div>
       <div class="step"> <span> Step 3</span> </div>
-      <div class="step current"> <span>Step 4</span> </div>
+      <div class="step "> <span>Step 4</span> </div>
+      <div class="step current"> <span> Step 5</span> </div>
     </div>
-    <div style="border:1px solid black">
+    <div>
       <h2 class="page-heading">ATTACHMENTS</h2>
       <v-container>
         <v-layout row>
@@ -20,7 +21,7 @@
           <v-flex xs4 lg4>
             <div v-if="pf">
               <span>{{ photo.name + ' (' + Number((photo.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'photo')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -35,7 +36,7 @@
           <v-flex xs4 lg4>
             <div v-if="xmf">
               <span>{{ xmarksFile.name + ' (' + Number((xmarksFile.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'xmarksFile')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -50,7 +51,7 @@
           <v-flex xs4 lg4>
             <div v-if="xiimf">
               <span>{{ xiimarksFile.name + ' (' + Number((xiimarksFile.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'xiimarksFile')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -65,7 +66,7 @@
           <v-flex xs4 lg4>
             <div v-if="adharF">
               <span>{{ adharPhoto.name + ' (' + Number((adharPhoto.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'adharPhoto')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -123,6 +124,7 @@
         xiimarksFile: null,
         adharPhoto: null,
         adharNO: "",
+        photoURL: "",
         // Each file will need to be sent as FormData element
         data: new FormData(),
         // errors: {
@@ -136,6 +138,12 @@
               alignment: 'center',
               style: 'header',
             },
+             {
+               text: "AAAAAAAA"
+     
+              // text: this.photoURL,
+                  // width: 150
+                },
 
             {
               text: 'Personal Details :',
@@ -594,6 +602,7 @@
               fontSize: 12,
               margin: [10, 20, 0, 20]
             },
+            // 
 
             {
               alignment: 'justify',
@@ -814,10 +823,7 @@
               }
             }
 
-              // {
-              //     image: this.$store.state.attachments,
-              //     width: 150
-              //   },
+             
 
             ],
             styles: {
@@ -848,7 +854,7 @@
     },
     methods: {
       onPickFile(arg) {
-        //  console.log(arg + "called")
+         console.log(arg + "called")
         if (arg == 'photo') {
           console.log("inside")
           this.$refs.photo.click()
@@ -893,24 +899,56 @@
         }
         // Object.keys(this.form).forEach(key => this.form[key] = "")
       },
-      removeAttachment() {
-
-        this.photo = null;
+      removeAttachment(e, arg) {
+       switch(arg){
+         
+        case "photo":
+         this.photo = null;
+         this.$refs.photo.value = null;
+        console.log(this.photo)
         this.pf = 0;
+        break;
+        case "xmarksFile": this.xmarksFile = null;
+        this.$refs.xmarksFile.value = null;
+        this.xmf = 0;
+        break;
+        case "xiimarksFile": this.xiimarksFile = null;
+        this.$refs.xiimarksFile.value = null;
+        this.xiimf = 0;
+        break;
+        case "adharPhoto": this.adharPhoto = null;
+        this.$refs.adharPhoto.value = null;
+        this.adharF = 0;
+        break;
+        default: return;
+
+       }
+            // this.photo = null;
+        // event.target.files[0] = null;
+        
         // console.log(this.attachments)
 
       },
       // This function will be called every time you add a file
       uploadFieldChange(e, arg) {
-        console.log(e.target.files)
+        
+        console.log("abac")
         // if (e.target.files[0].size < 400000) {
         switch (arg) {
           case "photo": this.photo = e.target.files[0];
+          console.log(e)
+          console.log(this.photo)
+           const reader = new FileReader()
+           reader.addEventListener('load', () => { this.photoURL = reader.result;
+             this.photoURL = reader.readAsDataURL(this.photoURL) 
+             console.log("HELEELLELELLLELLELEEL")   
+          } )
+              //  var eventPhoto = e;
             this.pf = 1;
-            console.log(this.photo)
+            // console.log(this.photo)
             break;
           case "xmarksFile": this.xmarksFile = e.target.files[0];
-            console.log(this.xmarksFile)
+            // console.log(this.xmarksFile)
             this.xmf = 1;
             break;
           case "xiimarksFile": this.xiimarksFile = e.target.files[0];
@@ -924,16 +962,16 @@
           default: return;
         }
         // }
-        console.log(this.photo)
+        // console.log(this.photo)
 
 
-        var files = e.target.files || e.dataTransfer.files;
+        // var files = e.target.files || e.dataTransfer.files;
         // if (!files.length)
         // return;
         // for (var i = files.length - 1; i >= 0; i--) {
-        this.attachments.push(files[0]);
+        // this.attachments.push(files[0]);
         // }
-        console.log(this.attachments)
+        // console.log(this.attachments)
 
         // Reset the form to avoid copying these files multiple times into this.attachments
         // document.getElementById("attachments").value = [];
@@ -975,30 +1013,6 @@
 </script>
 
 <style scoped>
-  .clearfix:after {
-    clear: both;
-    content: "";
-    display: block;
-    height: 0;
-  }
-
-  .arrow-steps .step {
-    font-size: 14px;
-    text-align: center;
-    color: #666;
-    cursor: default;
-    margin: 0 3px;
-    padding: 10px 10px 10px 30px;
-    min-width: 24.3%;
-    float: left;
-    position: relative;
-    background-color: #d9e3f7;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    transition: background-color 0.2s ease;
-  }
 
   .page-heading {
 
@@ -1035,112 +1049,137 @@
     /* box-shadow: 0.1px 0.1px 0.1px 0.1px black ; */
   }
 
-  @media screen and (max-width: 800px) {
+    .clearfix:after {
+        clear: both;
+        content: "";
+        display: block;
+        height: 0;
+    }
 
     .arrow-steps .step {
-      font-size: 14px;
-      text-align: center;
-      color: #666;
-      cursor: default;
-      margin: 0 3px;
-      padding: 10px 10px 10px 30px;
-      min-width: 24.1%;
-      float: left;
-      position: relative;
-      background-color: #d9e3f7;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      transition: background-color 0.2s ease;
+        font-size: 14px;
+        text-align: center;
+        color: #666;
+        cursor: default;
+        margin: 0 3px;
+        padding: 10px 10px 10px 30px;
+        min-width: 19.3%;
+        float: left;
+        position: relative;
+        background-color: #d9e3f7;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        transition: background-color 0.2s ease;
     }
-  }
 
-  @media screen and (max-width: 480px) {
 
-    .arrow-steps .step {
-      font-size: 14px;
-      text-align: center;
-      color: #666;
-      cursor: default;
-      margin: 0 3px;
-      padding: 10px 10px 10px 30px;
-      min-width: 23.3%;
-      float: left;
-      position: relative;
-      background-color: #d9e3f7;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      transition: background-color 0.2s ease;
+    @media screen and (max-width: 800px) {
+
+        .arrow-steps .step {
+            font-size: 14px;
+            text-align: center;
+            color: #666;
+            cursor: default;
+            margin: 0 3px;
+            padding: 10px 10px 10px 30px;
+            min-width: 18.8%;
+            float: left;
+            position: relative;
+            background-color: #d9e3f7;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            transition: background-color 0.2s ease;
+        }
     }
-  }
+
+    @media screen and (max-width: 480px) {
+
+        .arrow-steps .step {
+            font-size: 14px;
+            text-align: center;
+            color: #666;
+            cursor: default;
+            margin: 0 3px;
+            padding: 5px 5px 5px 15px;
+            min-width: 18.3%;
+            float: left;
+            position: relative;
+            background-color: #d9e3f7;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            transition: background-color 0.2s ease;
+        }
+    }
 
 
-  .arrow-steps .step:after,
-  .arrow-steps .step:before {
-    content: " ";
-    position: absolute;
-    top: 0;
-    right: -17px;
-    width: 0;
-    height: 0;
-    border-top: 19px solid transparent;
-    border-bottom: 17px solid transparent;
-    border-left: 17px solid #d9e3f7;
-    z-index: 2;
-    transition: border-color 0.2s ease;
-  }
+    .arrow-steps .step:after,
+    .arrow-steps .step:before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        right: -17px;
+        width: 0;
+        height: 0;
+        border-top: 19px solid transparent;
+        border-bottom: 17px solid transparent;
+        border-left: 17px solid #d9e3f7;
+        z-index: 2;
+        transition: border-color 0.2s ease;
+    }
 
-  .arrow-steps .step:before {
-    right: auto;
-    left: 0;
-    border-left: 17px solid #fff;
-    z-index: 0;
-  }
+    .arrow-steps .step:before {
+        right: auto;
+        left: 0;
+        border-left: 17px solid #fff;
+        z-index: 0;
+    }
 
-  .arrow-steps .step:first-child:before {
-    border: none;
-  }
+    .arrow-steps .step:first-child:before {
+        border: none;
+    }
 
-  .arrow-steps .step:first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-  }
+    .arrow-steps .step:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
 
-  .arrow-steps .step:last-child:after {
-    /* border-right: 1px solid black; */
-    display: none;
-  }
+    .arrow-steps .step:last-child:after {
+        /* border-right: 1px solid black; */
+        display: none;
+    }
 
-  .arrow-steps .step span {
-    position: relative;
-  }
+    .arrow-steps .step span {
+        position: relative;
+    }
 
-  .arrow-steps .step span:before {
-    opacity: 0;
-    content: "✔";
-    position: absolute;
-    top: -2px;
-    left: -20px;
-  }
+    .arrow-steps .step span:before {
+        opacity: 0;
+        content: "✔";
+        position: absolute;
+        top: -2px;
+        left: -20px;
+    }
 
-  .arrow-steps .step.done span:before {
-    opacity: 1;
-    -webkit-transition: opacity 0.3s ease 0.5s;
-    -moz-transition: opacity 0.3s ease 0.5s;
-    -ms-transition: opacity 0.3s ease 0.5s;
-    transition: opacity 0.3s ease 0.5s;
-  }
+    .arrow-steps .step.done span:before {
+        opacity: 1;
+        -webkit-transition: opacity 0.3s ease 0.5s;
+        -moz-transition: opacity 0.3s ease 0.5s;
+        -ms-transition: opacity 0.3s ease 0.5s;
+        transition: opacity 0.3s ease 0.5s;
+    }
 
-  .arrow-steps .step.current {
-    color: #fff;
-    background-color: #455553;
-  }
+    .arrow-steps .step.current {
+        color: #fff;
+        background-color: #455553;
+    }
 
-
-  .arrow-steps .step.current:after {
-    border-left: 17px solid #455553;
-  }
+    .arrow-steps .step.current:after {
+        border-left: 17px solid #455553;
+    }
 </style>
