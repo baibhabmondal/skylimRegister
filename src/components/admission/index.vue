@@ -6,9 +6,9 @@
       <v-layout row wrap>
         <v-flex lg8 offset-lg2>
 
-          <!-- <div style="display:none;"> -->
-
+          
           <v-stepper v-model="e1" style="box-shadow: none;background-color:#FFFBFB;">
+            <div style="display:none;">
             <v-stepper-header style="box-shadow: none;">
               <v-stepper-step step="1" :complete="e1 > 1" editable></v-stepper-step>
               <v-divider></v-divider>
@@ -23,7 +23,7 @@
               <v-stepper-step step="6" editable></v-stepper-step>
               <v-divider></v-divider>
             </v-stepper-header>
-            <!-- </div> -->
+            </div>
             <v-stepper-items style="padding:0px">
               <v-stepper-content step="1" style="width:100%;padding:0px;margin:0px">
                 <intro></intro>

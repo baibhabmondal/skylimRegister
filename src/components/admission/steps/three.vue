@@ -346,7 +346,7 @@
 }
 
 
- @media screen and (max-width: 800px) {
+ @media screen and (max-width: 850px) {
   
   .arrow-steps .step {
 	font-size: 14px;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="arrow-steps clearfix" style="margin: 0 0 5% 0; width: 100%;">
+    <div class="arrow-steps clearfix" style="margin: 2% 0 5% 0; width: 100%;">
       <div class="step "> <span> Step 1</span> </div>
       <div class="step"> <span>Step 2</span> </div>
       <div class="step"> <span> Step 3</span> </div>
@@ -1059,7 +1059,7 @@
   }
 
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 850px) {
 
     .arrow-steps .step {
       font-size: 14px;
