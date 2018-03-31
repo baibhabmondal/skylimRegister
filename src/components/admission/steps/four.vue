@@ -21,7 +21,7 @@
           <v-flex xs4 lg4>
             <div v-if="pf">
               <span>{{ photo.name + ' (' + Number((photo.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'photo')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -36,7 +36,7 @@
           <v-flex xs4 lg4>
             <div v-if="xmf">
               <span>{{ xmarksFile.name + ' (' + Number((xmarksFile.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'xmarksFile')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -51,7 +51,7 @@
           <v-flex xs4 lg4>
             <div v-if="xiimf">
               <span>{{ xiimarksFile.name + ' (' + Number((xiimarksFile.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'xiimarksFile')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -66,7 +66,7 @@
           <v-flex xs4 lg4>
             <div v-if="adharF">
               <span>{{ adharPhoto.name + ' (' + Number((adharPhoto.size / 1024 / 1024).toFixed(1)) + 'MB)'}}</span>
-              <span @click="removeAttachment()"><button>Remove</button></span>
+              <span @click="removeAttachment($event,'adharPhoto')"><button>Remove</button></span>
             </div>
           </v-flex>
         </v-layout>
@@ -115,6 +115,7 @@
         pf: 0,
 
         // You can store all your files here
+        data:  new FormData(),
         attachments: [],
         xmf: 0,
         xiimf: 0,
@@ -124,720 +125,724 @@
         xiimarksFile: null,
         adharPhoto: null,
         adharNO: "",
+        photoURL: "",
         // Each file will need to be sent as FormData element
-        data: new FormData(),
         // errors: {
         // },
         percentCompleted: 0, // You can store upload progress 0-150 in value, and show it on the screen
         dd: {
-            pageSize: 'A4',
-            pageMargins: [40, 20, 40, 20],
-            content: [{
-              text: 'SRM  Institute  Of  Science  And  Technology ,  Kattankulanthur',
-              alignment: 'center',
-              style: 'header',
-            },
+          pageSize: 'A4',
+          pageMargins: [40, 20, 40, 20],
+          content: [{
+            text: 'SRM  Institute  Of  Science  And  Technology ,  Kattankulanthur',
+            alignment: 'center',
+            style: 'header',
+          },
+          {
+            text: "AAAAAAAA"
 
-            {
-              text: 'Personal Details :',
-              alignment: 'left',
-              bold: true,
-              fontSize: 12,
-              margin: [10, 0, 0, 15]
-            },
-            {
-              alignment: 'justify',
-              columns: [
+            // text: this.photoURL,
+            // width: 150
+          },
 
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Full Name',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
+          {
+            text: 'Personal Details :',
+            alignment: 'left',
+            bold: true,
+            fontSize: 12,
+            margin: [10, 0, 0, 15]
+          },
+          {
+            alignment: 'justify',
+            columns: [
 
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
+              {
+                width: 150,
+                text: [{
+                  text: 'Full Name',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
 
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.fname,
-                    fontSize: 10,
-                    bold: true,
-                  },
-                  {
-                    text: '   '
-                  },
-                  {
-                    text: this.$store.state.form.lname,
-                    fontSize: 10,
-                    bold: true,
-                  },
-                  ],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Gender',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.gender,
-                    fontSize: 10,
-                    bold: true,
-                  }],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Date-of-birth',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.dob,
-                    fontSize: 10,
-                    bold: true,
-                  }
-                  ],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Father\'s Name',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.ffname,
-                    fontSize: 10,
-                    bold: true,
-                  },
-                  {
-                    text: '   '
-                  },
-                  {
-                    text: this.$store.state.form.flname,
-                    fontSize: 10,
-                    bold: true,
-                  },
-                  ],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Guardian\'s Name',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.gfname,
-                    fontSize: 10,
-                    bold: true,
-                  },
-                  {
-                    text: '   '
-                  },
-                  {
-                    text: this.$store.state.form.glname,
-                    fontSize: 10,
-                    bold: true,
-                  },
-                  ],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Email-Id',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.mail,
-                    fontSize: 10
-                  }],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Address',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.add1,
-                    fontSize: 10,
-                    bold: true,
-                  }],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'City',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.add1city,
-                    fontSize: 10,
-                    bold: true,
-                  }],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'State',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.add1state,
-                    fontSize: 10,
-                    bold: true,
-                  }],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Contact',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.contact1,
-                    fontSize: 10,
-                    bold: true,
-                  }],
-                  style: 'subheader'
-                },
-              ]
-            },
-
-            {
-              text: 'Academic Details :',
-              alignment: 'left',
-              bold: true,
-              fontSize: 12,
-              margin: [10, 20, 0, 20]
-            },
-            {
-              style: 'tableExample',
-              table: {
-                widths: [80, 80, 230, 90],
-                body: [
-                  [{
-                    bold: true,
-                    text: 'Class'
-                  },
-                  {
-                    bold: true,
-                    text: 'Name of Board'
-                  },
-                  {
-                    bold: true,
-                    text: 'Name of Institute'
-                  },
-                  {
-                    bold: true,
-                    text: 'Percentage'
-                  }
-                  ],
-                  ['X', this.$store.state.form.xboard, this.$store.state.form.xinstitute, this.$store.state.form.xmarks],
-                  ['XII', this.$store.state.form.xiiboard, this.$store.state.form.xiiinstitute, this.$store.state.form.xiimarks]
-                ]
-              }
-            },
-
-            {
-              text: 'Course Details :',
-              alignment: 'left',
-              bold: true,
-              fontSize: 12,
-              margin: [10, 20, 0, 20]
-            },
-
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Programme',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.programme,
-                    fontSize: 10,
-                    bold: true,
-                  }
-                  ],
-                  style: 'subheader'
-                },
-              ]
-            },
-
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Discipline',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.discipline,
-                    fontSize: 10,
-                    bold: true
-                  }],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              alignment: 'justify',
-              columns: [
-
-                {
-                  width: 150,
-                  text: [{
-                    text: 'Fee-Type',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-                {
-                  width: 20,
-                  text: [{
-                    text: ':',
-                    fontSize: 10,
-                    bold: false,
-                    margin: [0, 0, 10, 0]
-                  },],
-
-                  style: 'subheader'
-                },
-
-                {
-                  width: 200,
-                  text: [{
-                    text: this.$store.state.form.feeType,
-                    fontSize: 10,
-                    bold: true
-                  }],
-                  style: 'subheader'
-                },
-              ]
-            },
-            {
-              text: 'Fees Structure :',
-              alignment: 'left',
-              bold: true,
-              fontSize: 12,
-              margin: [10, 20, 0, 10]
-            },
-            {
-              text: 'Hostel Fees  :',
-              alignment: 'left',
-              bold: true,
-              fontSize: 12,
-              margin: [10, 20, 0, 20]
-            },
-            {
-              style: 'tableExample',
-              table: {
-                widths: [96, 72, 72, 72, 72, 72],
-                body: [
-                  [{
-                    bold: true,
-                    text: 'Fees Type'
-                  },
-                  {
-                    bold: true,
-                    text: '1st Year'
-                  },
-                  {
-                    bold: true,
-                    text: '2nd Year'
-                  },
-                  {
-                    bold: true,
-                    text: '3rd Year'
-                  },
-                  {
-                    bold: true,
-                    text: '4th Year'
-                  },
-                  {
-                    bold: true,
-                    text: 'Total'
-                  }
-                  ],
-                  ['Room Fees', this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees,
-                    this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees],
-                  ['Mess Fees', this.$store.state.fees.messFees, this.$store.state.fees.messFees,
-                    this.$store.state.fees.messFees, this.$store.state.fees.messFees, this.$store.state.fees.messFees],
-                  ['laundry Fees', this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees,
-                    this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees],
-                  ['Grand Total', this.$store.state.fees.messFees, this.$store.state.fees.messFees,
-                    this.$store.state.fees.messFees, this.$store.state.fees.messFees, this.$store.state.fees.messFees],
-                ]
-              }
-            },
-            {
-              text: 'Transport Fees  :',
-              alignment: 'left',
-              bold: true,
-              fontSize: 12,
-              margin: [10, 20, 0, 20]
-            },
-
-            {
-              style: 'tableExample',
-              table: {
-                widths: [96, 72, 72, 72, 72, 72],
-                body: [
-                  [{
-                    bold: true,
-                    text: 'Fees Type'
-                  },
-                  {
-                    bold: true,
-                    text: '1st Year'
-                  },
-                  {
-                    bold: true,
-                    text: '2nd Year'
-                  },
-                  {
-                    bold: true,
-                    text: '3rd Year'
-                  },
-                  {
-                    bold: true,
-                    text: '4th Year'
-                  },
-                  {
-                    bold: true,
-                    text: 'Total'
-                  }
-                  ],
-                  ['Transport Fees', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
-                    this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
-                  // ['Transport Fees', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
-                  //   this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
-                  ['Grand Total', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
-                    this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
-                ]
-              }
-            }
-
-              // {
-              //     image: this.$store.state.attachments,
-              //     width: 150
-              //   },
-
-            ],
-            styles: {
-              header: {
-                fontSize: 20,
-                alignment: 'justify',
-                margin: [0, 10, 0, 40],
-                bold: true,
+                style: 'subheader'
               },
-              subheader: {
-                fontSize: 10,
-                alignment: 'left',
-                margin: [10, 0, 0, 10]
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
               },
-              tableExample: {
-                margin: [10, 0, 0, 15]
-              }
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.fname,
+                  fontSize: 10,
+                  bold: true,
+                },
+                {
+                  text: '   '
+                },
+                {
+                  text: this.$store.state.form.lname,
+                  fontSize: 10,
+                  bold: true,
+                },
+                ],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Gender',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.gender,
+                  fontSize: 10,
+                  bold: true,
+                }],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Date-of-birth',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.dob,
+                  fontSize: 10,
+                  bold: true,
+                }
+                ],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Father\'s Name',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.ffname,
+                  fontSize: 10,
+                  bold: true,
+                },
+                {
+                  text: '   '
+                },
+                {
+                  text: this.$store.state.form.flname,
+                  fontSize: 10,
+                  bold: true,
+                },
+                ],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Guardian\'s Name',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.gfname,
+                  fontSize: 10,
+                  bold: true,
+                },
+                {
+                  text: '   '
+                },
+                {
+                  text: this.$store.state.form.glname,
+                  fontSize: 10,
+                  bold: true,
+                },
+                ],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Email-Id',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.mail,
+                  fontSize: 10
+                }],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Address',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.add1,
+                  fontSize: 10,
+                  bold: true,
+                }],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'City',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.add1city,
+                  fontSize: 10,
+                  bold: true,
+                }],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'State',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.add1state,
+                  fontSize: 10,
+                  bold: true,
+                }],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Contact',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.contact1,
+                  fontSize: 10,
+                  bold: true,
+                }],
+                style: 'subheader'
+              },
+            ]
+          },
+
+          {
+            text: 'Academic Details :',
+            alignment: 'left',
+            bold: true,
+            fontSize: 12,
+            margin: [10, 20, 0, 20]
+          },
+          {
+            style: 'tableExample',
+            table: {
+              widths: [80, 80, 230, 90],
+              body: [
+                [{
+                  bold: true,
+                  text: 'Class'
+                },
+                {
+                  bold: true,
+                  text: 'Name of Board'
+                },
+                {
+                  bold: true,
+                  text: 'Name of Institute'
+                },
+                {
+                  bold: true,
+                  text: 'Percentage'
+                }
+                ],
+                ['X', this.$store.state.form.xboard, this.$store.state.form.xinstitute, this.$store.state.form.xmarks],
+                ['XII', this.$store.state.form.xiiboard, this.$store.state.form.xiiinstitute, this.$store.state.form.xiimarks]
+              ]
             }
           },
+
+          {
+            text: 'Course Details :',
+            alignment: 'left',
+            bold: true,
+            fontSize: 12,
+            margin: [10, 20, 0, 20]
+          },
+          // 
+
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Programme',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.programme,
+                  fontSize: 10,
+                  bold: true,
+                }
+                ],
+                style: 'subheader'
+              },
+            ]
+          },
+
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Discipline',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.discipline,
+                  fontSize: 10,
+                  bold: true
+                }],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            alignment: 'justify',
+            columns: [
+
+              {
+                width: 150,
+                text: [{
+                  text: 'Fee-Type',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+              {
+                width: 20,
+                text: [{
+                  text: ':',
+                  fontSize: 10,
+                  bold: false,
+                  margin: [0, 0, 10, 0]
+                },],
+
+                style: 'subheader'
+              },
+
+              {
+                width: 200,
+                text: [{
+                  text: this.$store.state.form.feeType,
+                  fontSize: 10,
+                  bold: true
+                }],
+                style: 'subheader'
+              },
+            ]
+          },
+          {
+            text: 'Fees Structure :',
+            alignment: 'left',
+            bold: true,
+            fontSize: 12,
+            margin: [10, 20, 0, 10]
+          },
+          {
+            text: 'Hostel Fees  :',
+            alignment: 'left',
+            bold: true,
+            fontSize: 12,
+            margin: [10, 20, 0, 20]
+          },
+          {
+            style: 'tableExample',
+            table: {
+              widths: [96, 72, 72, 72, 72, 72],
+              body: [
+                [{
+                  bold: true,
+                  text: 'Fees Type'
+                },
+                {
+                  bold: true,
+                  text: '1st Year'
+                },
+                {
+                  bold: true,
+                  text: '2nd Year'
+                },
+                {
+                  bold: true,
+                  text: '3rd Year'
+                },
+                {
+                  bold: true,
+                  text: '4th Year'
+                },
+                {
+                  bold: true,
+                  text: 'Total'
+                }
+                ],
+                ['Room Fees', this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees,
+                  this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees],
+                ['Mess Fees', this.$store.state.fees.messFees, this.$store.state.fees.messFees,
+                  this.$store.state.fees.messFees, this.$store.state.fees.messFees, this.$store.state.fees.messFees],
+                ['laundry Fees', this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees,
+                  this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees],
+                ['Grand Total', this.$store.state.fees.messFees, this.$store.state.fees.messFees,
+                  this.$store.state.fees.messFees, this.$store.state.fees.messFees, this.$store.state.fees.messFees],
+              ]
+            }
+          },
+          {
+            text: 'Transport Fees  :',
+            alignment: 'left',
+            bold: true,
+            fontSize: 12,
+            margin: [10, 20, 0, 20]
+          },
+
+          {
+            style: 'tableExample',
+            table: {
+              widths: [96, 72, 72, 72, 72, 72],
+              body: [
+                [{
+                  bold: true,
+                  text: 'Fees Type'
+                },
+                {
+                  bold: true,
+                  text: '1st Year'
+                },
+                {
+                  bold: true,
+                  text: '2nd Year'
+                },
+                {
+                  bold: true,
+                  text: '3rd Year'
+                },
+                {
+                  bold: true,
+                  text: '4th Year'
+                },
+                {
+                  bold: true,
+                  text: 'Total'
+                }
+                ],
+                ['Transport Fees', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
+                  this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
+                // ['Transport Fees', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
+                //   this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
+                ['Grand Total', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
+                  this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
+              ]
+            }
+          }
+
+
+
+          ],
+          styles: {
+            header: {
+              fontSize: 20,
+              alignment: 'justify',
+              margin: [0, 10, 0, 40],
+              bold: true,
+            },
+            subheader: {
+              fontSize: 10,
+              alignment: 'left',
+              margin: [10, 0, 0, 10]
+            },
+            tableExample: {
+              margin: [10, 0, 0, 15]
+            }
+          }
+        },
 
       }
     },
@@ -849,69 +854,81 @@
     },
     methods: {
       onPickFile(arg) {
-        //  console.log(arg + "called")
+
         if (arg == 'photo') {
-          console.log("inside")
+
           this.$refs.photo.click()
         }
         else if (arg == 'xmarksFile') {
-          console.log("inside")
+
           this.$refs.xmarksFile.click()
         }
         else if (arg == 'xiimarksFile') {
-          console.log("inside")
+
           this.$refs.xiimarksFile.click()
         }
         else if (arg == 'adharPhoto') {
-          console.log("inside")
+
           this.$refs.adharPhoto.click()
         }
       },
-      // getAttachmentSize() {
-
-      //   this.upload_size = 0; // Reset to beginningƒ
-      //   this.attachments.map((item) => {
-      //     this.upload_size += parseInt(item.size);
-      //   });
-
-      //   this.upload_size = Number((this.upload_size).toFixed(1));
-      //   this.$forceUpdate();
-      //   console.log(this.attachments)
-      // },
       prepareFields() {
+        // console.log(this.form);
 
-        if (this.attachments.length > 0) {
-          for (var i = 0; i < this.attachments.length; i++) {
-            // this.form.attachments.push(this.attachments[i]);
-            // this.data.append('attachments[]', attachment);
-          }
-          // console.log(this.attachments)
-
-        }
+        // let data =  new FormData()
+        // data.append("key", "Value")
         for (const key of Object.keys(this.form)) {
-          console.log(key, this.form[key])
-          this.data.append(key, this.form[key]);
+          // console.log(key, this.form[key])
+        this.data.append(key, this.form[key]);
+        // console.log(data)NPM RUN DEV;
         }
-        // Object.keys(this.form).forEach(key => this.form[key] = "")
+        console.log(this.data)
+
       },
-      removeAttachment() {
+      removeAttachment(e, arg) {
+        switch (arg) {
 
-        this.photo = null;
-        this.pf = 0;
-        // console.log(this.attachments)
+          case "photo":
+            this.photo = null;
+            this.$refs.photo.value = null;
 
+            this.pf = 0;
+            break;
+          case "xmarksFile": this.xmarksFile = null;
+            this.$refs.xmarksFile.value = null;
+            this.xmf = 0;
+            break;
+          case "xiimarksFile": this.xiimarksFile = null;
+            this.$refs.xiimarksFile.value = null;
+            this.xiimf = 0;
+            break;
+          case "adharPhoto": this.adharPhoto = null;
+            this.$refs.adharPhoto.value = null;
+            this.adharF = 0;
+            break;
+          default: return;
+
+        }
       },
       // This function will be called every time you add a file
       uploadFieldChange(e, arg) {
-        console.log(e.target.files)
-        // if (e.target.files[0].size < 400000) {
+
+
         switch (arg) {
           case "photo": this.photo = e.target.files[0];
+
+            const reader = new FileReader()
+            reader.addEventListener('load', () => {
+            this.photoURL = reader.result;
+              this.photoURL = reader.readAsDataURL(this.photoURL)
+
+            })
+            //  var eventPhoto = e;
             this.pf = 1;
-            console.log(this.photo)
+            // console.log(this.photo)
             break;
           case "xmarksFile": this.xmarksFile = e.target.files[0];
-            console.log(this.xmarksFile)
+            // console.log(this.xmarksFile)
             this.xmf = 1;
             break;
           case "xiimarksFile": this.xiimarksFile = e.target.files[0];
@@ -924,34 +941,29 @@
             break;
           default: return;
         }
-        // }
-        console.log(this.photo)
-
-
-        var files = e.target.files || e.dataTransfer.files;
-        // if (!files.length)
-        // return;
-        // for (var i = files.length - 1; i >= 0; i--) {
-        this.attachments.push(files[0]);
-        // }
-        console.log(this.attachments)
-
-        // Reset the form to avoid copying these files multiple times into this.attachments
-        // document.getElementById("attachments").value = [];
       },
       submit() {
 
         //    this.form.attachments[0] = this.attachments[0];
-        this.prepareFields();
+        
         this.$emit('to1push', this.form);
-        console.log(this.data)
+        // console.log(this.data)
         this.form.photo = this.photo;
         this.form.xmarksFile = this.xmarksFile;
         this.form.xiimarksFile = this.xmarksFile;
         this.form.adharPhoto = this.adharPhoto;
         this.form.adharNO = this.adharNO;
+        this.prepareFields();
+        console.log('herll')
+        axios.post('http://jsonplaceholder.typicode.com/posts', { "key" : "value"})
+        .then(response => { console.log(response) })
         
-        console.log(this.form)
+
+
+
+
+
+        // console.log(this.form)
       },
       downloadpdf() {
 
@@ -965,7 +977,7 @@
         this.attachments = [];
       },
       start() {
-        console.log('Starting File Management Component');
+        // console.log('Starting File Management Component');
       },
     },
     created() {
@@ -976,7 +988,6 @@
 </script>
 
 <style scoped>
-
   .page-heading {
 
     font-family: 'Source Sans Pro', sans-serif;
@@ -1012,137 +1023,137 @@
     /* box-shadow: 0.1px 0.1px 0.1px 0.1px black ; */
   }
 
-    .clearfix:after {
-        clear: both;
-        content: "";
-        display: block;
-        height: 0;
-    }
+  .clearfix:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+  }
+
+  .arrow-steps .step {
+    font-size: 14px;
+    text-align: center;
+    color: #666;
+    cursor: default;
+    margin: 0 3px;
+    padding: 10px 10px 10px 30px;
+    min-width: 19.3%;
+    float: left;
+    position: relative;
+    background-color: #d9e3f7;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: background-color 0.2s ease;
+  }
+
+
+  @media screen and (max-width: 800px) {
 
     .arrow-steps .step {
-        font-size: 14px;
-        text-align: center;
-        color: #666;
-        cursor: default;
-        margin: 0 3px;
-        padding: 10px 10px 10px 30px;
-        min-width: 19.3%;
-        float: left;
-        position: relative;
-        background-color: #d9e3f7;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        transition: background-color 0.2s ease;
+      font-size: 14px;
+      text-align: center;
+      color: #666;
+      cursor: default;
+      margin: 0 3px;
+      padding: 10px 10px 10px 30px;
+      min-width: 18.8%;
+      float: left;
+      position: relative;
+      background-color: #d9e3f7;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: background-color 0.2s ease;
     }
+  }
 
+  @media screen and (max-width: 480px) {
 
-    @media screen and (max-width: 800px) {
-
-        .arrow-steps .step {
-            font-size: 14px;
-            text-align: center;
-            color: #666;
-            cursor: default;
-            margin: 0 3px;
-            padding: 10px 10px 10px 30px;
-            min-width: 18.8%;
-            float: left;
-            position: relative;
-            background-color: #d9e3f7;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            transition: background-color 0.2s ease;
-        }
+    .arrow-steps .step {
+      font-size: 14px;
+      text-align: center;
+      color: #666;
+      cursor: default;
+      margin: 0 3px;
+      padding: 5px 5px 5px 15px;
+      min-width: 18.3%;
+      float: left;
+      position: relative;
+      background-color: #d9e3f7;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: background-color 0.2s ease;
     }
-
-    @media screen and (max-width: 480px) {
-
-        .arrow-steps .step {
-            font-size: 14px;
-            text-align: center;
-            color: #666;
-            cursor: default;
-            margin: 0 3px;
-            padding: 5px 5px 5px 15px;
-            min-width: 18.3%;
-            float: left;
-            position: relative;
-            background-color: #d9e3f7;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            transition: background-color 0.2s ease;
-        }
-    }
+  }
 
 
-    .arrow-steps .step:after,
-    .arrow-steps .step:before {
-        content: " ";
-        position: absolute;
-        top: 0;
-        right: -17px;
-        width: 0;
-        height: 0;
-        border-top: 19px solid transparent;
-        border-bottom: 17px solid transparent;
-        border-left: 17px solid #d9e3f7;
-        z-index: 2;
-        transition: border-color 0.2s ease;
-    }
+  .arrow-steps .step:after,
+  .arrow-steps .step:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: -17px;
+    width: 0;
+    height: 0;
+    border-top: 19px solid transparent;
+    border-bottom: 17px solid transparent;
+    border-left: 17px solid #d9e3f7;
+    z-index: 2;
+    transition: border-color 0.2s ease;
+  }
 
-    .arrow-steps .step:before {
-        right: auto;
-        left: 0;
-        border-left: 17px solid #fff;
-        z-index: 0;
-    }
+  .arrow-steps .step:before {
+    right: auto;
+    left: 0;
+    border-left: 17px solid #fff;
+    z-index: 0;
+  }
 
-    .arrow-steps .step:first-child:before {
-        border: none;
-    }
+  .arrow-steps .step:first-child:before {
+    border: none;
+  }
 
-    .arrow-steps .step:first-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-    }
+  .arrow-steps .step:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
 
-    .arrow-steps .step:last-child:after {
-        /* border-right: 1px solid black; */
-        display: none;
-    }
+  .arrow-steps .step:last-child:after {
+    /* border-right: 1px solid black; */
+    display: none;
+  }
 
-    .arrow-steps .step span {
-        position: relative;
-    }
+  .arrow-steps .step span {
+    position: relative;
+  }
 
-    .arrow-steps .step span:before {
-        opacity: 0;
-        content: "✔";
-        position: absolute;
-        top: -2px;
-        left: -20px;
-    }
+  .arrow-steps .step span:before {
+    opacity: 0;
+    content: "✔";
+    position: absolute;
+    top: -2px;
+    left: -20px;
+  }
 
-    .arrow-steps .step.done span:before {
-        opacity: 1;
-        -webkit-transition: opacity 0.3s ease 0.5s;
-        -moz-transition: opacity 0.3s ease 0.5s;
-        -ms-transition: opacity 0.3s ease 0.5s;
-        transition: opacity 0.3s ease 0.5s;
-    }
+  .arrow-steps .step.done span:before {
+    opacity: 1;
+    -webkit-transition: opacity 0.3s ease 0.5s;
+    -moz-transition: opacity 0.3s ease 0.5s;
+    -ms-transition: opacity 0.3s ease 0.5s;
+    transition: opacity 0.3s ease 0.5s;
+  }
 
-    .arrow-steps .step.current {
-        color: #fff;
-        background-color: #455553;
-    }
+  .arrow-steps .step.current {
+    color: #fff;
+    background-color: #455553;
+  }
 
-    .arrow-steps .step.current:after {
-        border-left: 17px solid #455553;
-    }
+  .arrow-steps .step.current:after {
+    border-left: 17px solid #455553;
+  }
 </style>

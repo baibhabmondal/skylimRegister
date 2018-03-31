@@ -61,8 +61,12 @@ export const store = new Vuex.Store({
       transport: "",
       feePaid: "",
       // attachments
-      attachments: []
-
+      // attachments: []
+      photo: null,
+      xmarksFile: null,
+      xiimarksFile: null,
+      adharPhoto: null,
+      adharNO: "",
 
     },
 
