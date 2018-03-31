@@ -240,8 +240,8 @@
 
           </v-flex>
           <v-flex xs4>
-            <v-btn @click="submit" type="submit" color="primary">CONTINUE</v-btn>
-            <v-btn @click="clear" color="primary">clear</v-btn>
+            <v-btn @click="submit" type="submit" style="background-color:#455553;color:white">CONTINUE</v-btn>
+            <v-btn @click="clear" style="background-color:#455553;color:white">clear</v-btn>
           </v-flex>
 
 

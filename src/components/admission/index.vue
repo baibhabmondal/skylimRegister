@@ -27,28 +27,28 @@
             <v-stepper-items style="padding:0px">
               <v-stepper-content step="1" style="width:100%;padding:0px;margin:0px">
                 <intro></intro>
-                <v-btn color="primary" @click.native="e1 = 2">go to registration</v-btn>
+                <v-btn style="background-color:#455553;color:white" @click.native="e1 = 2">go to registration</v-btn>
               </v-stepper-content>
               <v-stepper-content step="2" style="width:100%;padding:0px;margin:0px">
                 <one :hideFields="hideFieldsOne" :complete="e1" @form1validity="setE"></one>
               </v-stepper-content>
               <v-stepper-content step="3" style="margin:0;padding:0;">
                 <two :hideFields="hideFieldsOne" :complete="e1" @form1validity="setE"></two>
-                <v-btn color="primary" @click.native="e1 = 2">Go Back</v-btn>
+                <v-btn style="background-color:#455553;color:white" @click.native="e1 = 2">Go Back</v-btn>
               </v-stepper-content>
               <v-stepper-content step="4" style="margin:0;padding:0;">
                 <three :hideFields="hideFieldsOne" :complete="e1" @form1validity="setE"></three>
-                <v-btn color="primary" @click.native="e1 = 3">Go back</v-btn>
+                <v-btn style="background-color:#455553;color:white" @click.native="e1 = 3">Go back</v-btn>
               </v-stepper-content>
               
               <v-stepper-content step="5" style="margin:0;padding:0;">
                 <fifth  :complete="e1"  @form1validity="setE"></fifth>
-                <v-btn color="primary" @click.native="e1 = 4">Go back</v-btn>
+                <v-btn style="background-color:#455553;color:white" @click.native="e1 = 4">Go back</v-btn>
                
               </v-stepper-content>
               <v-stepper-content step="6" style="margin:0;padding:0;">
                 <four @to1push="pushing" :complete="e1"></four>
-                <v-btn color="primary" @click.native="e1 = 1">Continue</v-btn>
+                <v-btn style="background-color:#455553;color:white" @click.native="e1 = 1">Continue</v-btn>
                 <v-btn flat>Cancel</v-btn>
               </v-stepper-content>
             </v-stepper-items>
