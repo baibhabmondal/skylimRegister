@@ -968,10 +968,11 @@
       },
       downloadpdf() {
         
-        console.log(this.form.total)
+        console.log(this.form.total + "On preview")
+        console.log(this.form)
         var okay = pdfMake.createPdf(this.dd)
         okay.open()
-        this.form.total =0;
+        // this.form.total =0;
         // okay.download('Report.pdf')
       },
 
