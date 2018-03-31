@@ -61,8 +61,18 @@ export const store = new Vuex.Store({
       transport: "",
       feePaid: "",
       // attachments
-      attachments: []
-
+      // attachments: []
+      photo: null,
+      xmarksFile: null,
+      xiimarksFile: null,
+      adharPhoto: null,
+      adharNO: "",
+      //fees
+      hostelFees: 0,
+      messFees: 0,
+      laundryFees: 0,
+      transportFees: 0,
+      total: 0
 
     },
 
@@ -110,10 +120,11 @@ export const store = new Vuex.Store({
     ],
     fees:
     {
-      hostelFees: "500000",
-      messFees: "30000",
-      laundryFees: "20000",
-      transportFees: "30000"
+      hostelFees: 500000,
+      messFees: 30000,
+      laundryFees: 20000,
+      transportFees: 30000,
+      total: 0
     }
 
 

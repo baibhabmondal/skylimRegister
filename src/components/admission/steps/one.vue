@@ -327,6 +327,10 @@
         this.form.add1 = this.add1;
         this.form.add1city = this.add1city;
         this.form.add1state = this.add1state;
+        this.form.add1pincode = this.add1pincode;
+        this.form.add2 = this.add2;
+        this.form.add2city = this.add2city;
+        this.form.add2state = this.add2state;
         this.form.add2pincode = this.add2pincode;
         this.form.contact1 = this.contact1;
         this.form.contact2 = this.contact2;

@@ -14,7 +14,7 @@
 
 
             <!-- details of your 10 board -->
-            
+
             <v-layout row>
                 <v-flex xs4 lg5 pt-4 text-xs-right>
                     <b>PROGRAMME:</b>
@@ -161,7 +161,41 @@
                 this.form.discipline = this.discipline;
                 this.form.feeType = this.feeType;
                 this.form.feePaid = this.feePaid;
+                
+                if(this.hostel)
+                {
+                    for (var i = 0; i < this.fees.length; i++) {
+                        if (this.fees[i].key == "hostelFees" && this.fees[i].need == true)
+                        {
+                            this.form.hostelFees = this.fees[i].amount;
+                            console.log(this.fees[i].amount)
+                            this.form.total += this.fees[i].amount;
+                            // console.log(this.form.total + "   ")
+                            console.log(this.form.hostelFees)
+                        }
+                        if (this.fees[i].key == "messFees" && this.fees[i].need == true)
+                          {
+                           this.form.messFees = this.fees[i].amount;
+                           this.form.total += this.fees[i].amount;   
+                        }  
+                        if (this.fees[i].key == "laundryFees" && this.fees[i].need == true)
+                           {
+                              this.form.laundryFees = this.fees[i].amount;
+                              this.form.total +=this.fees[i].amount;
+                           } 
+                       
+                }
 
+            }
+            else 
+            {
+                     if (this.fees[i].key == "transportFees" && this.fees[i].need == true) {
+                        this.form.transportFees = this.fees[i].amount;
+                        this.form.total += this.fees[i].amount;
+                    }
+                    
+
+            }
             },
             res: function () {
 
@@ -190,23 +224,27 @@
                     {
                         feeTitle: "HOSTEL FEES",
                         need: true,
-                        amount: "2000000"
+                        amount: 9000000,
+                        key: "hostelFees"
                     },
                     {
                         feeTitle: "MESS FEES",
                         need: true,
-                        amount: "200000"
+                        amount: 200000,
+                        key: "messFees"
 
                     },
                     {
                         feeTitle: "LAUNDRY FEES",
                         need: false,
-                        amount: "200000"
+                        amount: 400000,
+                        key: "laundryFees"
                     },
                     {
                         feeTitle: "TRANSPORT FEES",
                         need: true,
-                        amount: "200000"
+                        amount: 600000,
+                        key: "transportFees"
                     }
                 ]
 
