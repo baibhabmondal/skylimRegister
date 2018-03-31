@@ -764,14 +764,14 @@
                   text: 'Total'
                 }
                 ],
-                ['Room Fees', this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees,
-                  this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees, this.$store.state.fees.hostelFees],
-                ['Mess Fees', this.$store.state.fees.messFees, this.$store.state.fees.messFees,
-                  this.$store.state.fees.messFees, this.$store.state.fees.messFees, this.$store.state.fees.messFees],
-                ['laundry Fees', this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees,
-                  this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees, this.$store.state.fees.laundryFees],
-                ['Grand Total', this.$store.state.fees.messFees, this.$store.state.fees.messFees,
-                  this.$store.state.fees.messFees, this.$store.state.fees.messFees, this.$store.state.fees.messFees],
+                ['Room Fees', this.$store.state.form.hostelFees, this.$store.state.form.hostelFees,
+                  this.$store.state.form.hostelFees, this.$store.state.form.hostelFees, this.$store.state.form.hostelFees],
+                ['Mess Fees', this.$store.state.form.messFees, this.$store.state.form.messFees,
+                  this.$store.state.form.messFees, this.$store.state.form.messFees, this.$store.state.form.messFees],
+                ['laundry Fees', this.$store.state.form.laundryFees, this.$store.state.form.laundryFees,
+                  this.$store.state.form.laundryFees, this.$store.state.form.laundryFees, this.$store.state.form.laundryFees],
+                ['Grand Total', this.$store.state.form.total, this.$store.state.form.total,
+                  this.$store.state.form.total, this.$store.state.form.total, this.$store.state.form.total],
               ]
             }
           },
@@ -813,12 +813,12 @@
                   text: 'Total'
                 }
                 ],
-                ['Transport Fees', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
-                  this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
+                ['Transport Fees', this.$store.state.form.transportFees, this.$store.state.form.transportFees,
+                  this.$store.state.form.transportFees, this.$store.state.form.transportFees, this.$store.state.form.transportFees],
                 // ['Transport Fees', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
                 //   this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
-                ['Grand Total', this.$store.state.fees.transportFees, this.$store.state.fees.transportFees,
-                  this.$store.state.fees.transportFees, this.$store.state.fees.transportFees, this.$store.state.fees.transportFees],
+                ['Grand Total', this.$store.state.form.total, this.$store.state.form.total,
+                  this.$store.state.form.total, this.$store.state.form.total, this.$store.state.form.total],
               ]
             }
           }
@@ -882,7 +882,7 @@
         this.data.append(key, this.form[key]);
         // console.log(data)NPM RUN DEV;
         }
-        console.log(this.data)
+        console.log(this.data.getAll("fname"))
 
       },
       removeAttachment(e, arg) {
@@ -955,8 +955,9 @@
         this.form.adharNO = this.adharNO;
         this.prepareFields();
         console.log('herll')
-        axios.post('http://jsonplaceholder.typicode.com/posts', { "key" : "value"})
+        axios.post('http://jsonplaceholder.typicode.com/posts', this.data)
         .then(response => { console.log(response) })
+        .catch()
         
 
 
@@ -966,9 +967,11 @@
         // console.log(this.form)
       },
       downloadpdf() {
-
+        
+        console.log(this.form.total)
         var okay = pdfMake.createPdf(this.dd)
         okay.open()
+        this.form.total =0;
         // okay.download('Report.pdf')
       },
 
