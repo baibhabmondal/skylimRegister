@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="arrow-steps clearfix" style="margin: 0 0 5% 0; width: 100%;">
+    <div class="arrow-steps clearfix" style="margin: 2% 0 5% 0; width: 100%;">
       <div class="step "> <span> Step 1</span> </div>
       <div class="step"> <span>Step 2</span> </div>
       <div class="step"> <span> Step 3</span> </div>
@@ -15,7 +15,7 @@
             <b>PHOTO : </b>
           </v-flex>
           <v-flex xs4 lg4>
-            <v-btn raised style="background:#666; color: white; " @click="onPickFile('photo')">UPLOAD</v-btn>
+            <v-btn raised class="button" style="background:#666; color: white; " @click="onPickFile('photo')">UPLOAD</v-btn>
             <input type="file" id="attachments" ref="photo" style="display: none;" @change="uploadFieldChange($event,'photo')">
           </v-flex>
           <v-flex xs4 lg4>
@@ -30,7 +30,7 @@
             <b>X MARKSHEET : </b>
           </v-flex>
           <v-flex xs4 lg4>
-            <v-btn raised style="background:#666; color: white; " @click="onPickFile('xmarksFile')">UPLOAD</v-btn>
+            <v-btn raised class="button" style="background:#666; color: white; " @click="onPickFile('xmarksFile')">UPLOAD</v-btn>
             <input type="file" id="attachments" ref="xmarksFile" style="display: none;" @change="uploadFieldChange($event,'xmarksFile')">
           </v-flex>
           <v-flex xs4 lg4>
@@ -45,7 +45,7 @@
             <b>XII MARKSHEET : </b>
           </v-flex>
           <v-flex xs4 lg4>
-            <v-btn raised style="background:#666; color: white; " @click="onPickFile('xiimarksFile')">UPLOAD</v-btn>
+            <v-btn raised class="button" style="background:#666; color: white; " @click="onPickFile('xiimarksFile')">UPLOAD</v-btn>
             <input type="file" id="attachments" ref="xiimarksFile" style="display: none;" @change="uploadFieldChange($event,'xiimarksFile')">
           </v-flex>
           <v-flex xs4 lg4>
@@ -60,7 +60,7 @@
             <b>ADHAR CARD PHOTO : </b>
           </v-flex>
           <v-flex xs4 lg4>
-            <v-btn raised style="background:#666; color: white; " @click="onPickFile('adharPhoto')">UPLOAD</v-btn>
+            <v-btn raised class="button" style="background:#666; color: white; " @click="onPickFile('adharPhoto')">UPLOAD</v-btn>
             <input type="file" id="attachments" ref="adharPhoto" style="display: none;" @change="uploadFieldChange($event,'adharPhoto')">
           </v-flex>
           <v-flex xs4 lg4>
@@ -86,8 +86,8 @@
         </v-layout>
       </v-container>
 
-      <v-btn @click="submit">SUBMIT</v-btn>
-      <v-btn @click="downloadpdf">Preview</v-btn>
+      <v-btn style="background-color:#455553;color:white" @click="submit">SUBMIT</v-btn>
+      <v-btn style="background-color:#455553;color:white" @click="downloadpdf">Preview</v-btn>
 
 
 
@@ -139,7 +139,7 @@
             style: 'header',
           },
           {
-            text: "AAAAAAAA"
+            // text: "AAAAAAAA"
 
             // text: this.photoURL,
             // width: 150
@@ -968,10 +968,11 @@
       },
       downloadpdf() {
         
-        console.log(this.form.total)
+        console.log(this.form.total + "On preview")
+        console.log(this.form)
         var okay = pdfMake.createPdf(this.dd)
         okay.open()
-        this.form.total =0;
+        // this.form.total =0;
         // okay.download('Report.pdf')
       },
 
@@ -991,6 +992,12 @@
 </script>
 
 <style scoped>
+  .button{
+    width:80px;
+    height:30px;
+    margin-top:7%;
+  
+  }
   .page-heading {
 
     font-family: 'Source Sans Pro', sans-serif;
@@ -1052,7 +1059,7 @@
   }
 
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 850px) {
 
     .arrow-steps .step {
       font-size: 14px;

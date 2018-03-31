@@ -19,20 +19,30 @@
                 <v-flex xs4 lg5 pt-4 text-xs-right>
                     <b>PROGRAMME:</b>
                 </v-flex>
-                <v-flex xs4 lg4>
-                    <input v-model="programme" type="text" placeholder="PROGRAMME" name="programme" v-validate="'required|alpha_spaces'" data-vv-delay="300"
-                        :class="{'input': true, }" class="textinput">
-                    <span v-show="errors.has('programme')" style="color:red;">{{ errors.first('programme') }}</span>
-                </v-flex>
+            <v-flex xs4 lg4 pt-3>
+                <div class="select-field">
+                    <select v-model="programme" name="programme" v-validate="'required'">
+                        <option  value="" hidden>programme</option>
+                        <option  v-for="programme in programmes"><span v-if='programme.need'>{{programme.programme}}</span></option>
+                    </select>
+                </div>
+
+                <span v-show="errors.has('discipline')" style="color:red;">{{ errors.first('discipline') }}</span>
+            </v-flex>
             </v-layout>
             <!-- name of the board  -->
             <v-layout row>
                 <v-flex xs4 lg5 pt-4 text-xs-right>
                     <b>DISCIPLINE:</b>
                 </v-flex>
-                <v-flex xs4 lg4>
-                    <input v-model="discipline" type="text" placeholder="DISCIPLINE" name="discipline" v-validate="'required|alpha_spaces'" data-vv-delay="300"
-                        :class="{'input': true, }" class="textinput">
+                <v-flex xs4 lg4 pt-3>
+                    <div class="select-field">
+                        <select v-model="discipline" name="discipline" v-validate="'required'">
+                        <option  value="" hidden>discipline</option>
+                        <option  v-for="discipline in disciplines"><span v-if='discipline.need'>{{discipline.course}}</span></option>
+                    </select>
+                    </div>
+
                     <span v-show="errors.has('discipline')" style="color:red;">{{ errors.first('discipline') }}</span>
                 </v-flex>
             </v-layout>
@@ -115,8 +125,8 @@
                 <v-flex xs4>
                 </v-flex>
                 <v-flex xs4>
-                    <v-btn v-on:click="submit" type="submit" color="dark">CONTINUE</v-btn>
-                    <v-btn @click="clear" color="dark">clear</v-btn>
+                    <v-btn v-on:click="submit" type="submit" style="background-color:#455553;color:white">CONTINUE</v-btn>
+                    <v-btn @click="clear" style="background-color:#455553;color:white">clear</v-btn>
                 </v-flex>
             </v-layout>
 
@@ -161,41 +171,40 @@
                 this.form.discipline = this.discipline;
                 this.form.feeType = this.feeType;
                 this.form.feePaid = this.feePaid;
-                
-                if(this.hostel)
-                {
+
+                if (this.hostel) {
                     for (var i = 0; i < this.fees.length; i++) {
-                        if (this.fees[i].key == "hostelFees" && this.fees[i].need == true)
-                        {
+                        if (this.fees[i].key == "hostelFees" && this.fees[i].need == true) {
                             this.form.hostelFees = this.fees[i].amount;
-                            console.log(this.fees[i].amount)
-                            this.form.total += this.fees[i].amount;
+                            // console.log(this.fees[i].amount)
+                            this.total += this.fees[i].amount;
                             // console.log(this.form.total + "   ")
-                            console.log(this.form.hostelFees)
+                            // console.log(this.form.hostelFees)
                         }
-                        if (this.fees[i].key == "messFees" && this.fees[i].need == true)
-                          {
-                           this.form.messFees = this.fees[i].amount;
-                           this.form.total += this.fees[i].amount;   
-                        }  
-                        if (this.fees[i].key == "laundryFees" && this.fees[i].need == true)
-                           {
-                              this.form.laundryFees = this.fees[i].amount;
-                              this.form.total +=this.fees[i].amount;
-                           } 
-                       
-                }
+                        if (this.fees[i].key == "messFees" && this.fees[i].need == true) {
+                            this.form.messFees = this.fees[i].amount;
+                            this.total += this.fees[i].amount;
+                        }
+                        if (this.fees[i].key == "laundryFees" && this.fees[i].need == true) {
+                            this.form.laundryFees = this.fees[i].amount;
+                            this.total += this.fees[i].amount;
+                        }
 
-            }
-            else 
-            {
-                     if (this.fees[i].key == "transportFees" && this.fees[i].need == true) {
-                        this.form.transportFees = this.fees[i].amount;
-                        this.form.total += this.fees[i].amount;
                     }
-                    
 
-            }
+                }
+                else {
+                    for (var i = 0; i < this.fees.length; i++)
+                        if (this.fees[i].key == "transportFees" && this.fees[i].need == true) {
+                            this.form.transportFees = this.fees[i].amount;
+                            this.total += this.fees[i].amount;
+                        }
+
+
+                }
+                this.form.total = this.total;
+                this.total = 0;
+                console.log(this.form.total + " TOTAL")
             },
             res: function () {
 
@@ -218,6 +227,7 @@
                 programme: "",
                 discipline: "",
                 feeType: "",
+                total: 0,
 
                 feePaid: "",
                 fees: [
@@ -245,6 +255,34 @@
                         need: true,
                         amount: 600000,
                         key: "transportFees"
+                    }
+                ],
+                programmes: [
+                    {
+                        need: true,
+                        programme: "B.tech",
+                    },
+                    {
+                        need: true,
+                        programme: "M.tech",
+                    },
+                    {
+                        need: true,
+                        programme: "B.COM",
+                    }
+                ],
+                disciplines: [
+                    {
+                        need: true,
+                        course: "CSE"
+                    },
+                    {
+                        need: true,
+                        course: "EEE"
+                    },
+                    {
+                        need: true,
+                        course: "ECE"
                     }
                 ]
 
@@ -387,7 +425,7 @@
     }
 
 
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 850px) {
 
         .arrow-steps .step {
             font-size: 14px;
